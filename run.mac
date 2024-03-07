@@ -7,7 +7,6 @@
 /control/verbose 1
 /run/verbose 2
 
-# Shoot along Z direction
-/run/beamOn 100
+/run/beamOn 10000
 
 exit
