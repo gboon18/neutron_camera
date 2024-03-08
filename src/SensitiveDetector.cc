@@ -36,6 +36,9 @@
 #include "G4SDManager.hh"
 #include "G4ios.hh"
 
+#include "G4RunManager.hh"
+#include "EventAction.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 SensitiveDetector::SensitiveDetector(const G4String& name)
@@ -66,40 +69,33 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   G4Material* material = volume->GetMaterial();
   G4String matName = material->GetName();
 
-  // G4cout<<"SensitiveDetector::ProcessHits volName: "<<volName<<", matName: "<<matName<<G4endl;
-  // PrintMaterialElements(material);
+  // Access the EventAction
+  auto eventAction = const_cast<EventAction*>(static_cast<const EventAction*>(G4RunManager::GetRunManager()->GetUserEventAction()));
 
-  // //av_1_impr_1_LV_det5_pv_5
-  // if(volName == "av_1_impr_1_LV_det1_pv_1"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det2_pv_2"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det3_pv_3"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det4_pv_4"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det5_pv_5"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det6_pv_6"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det7_pv_7"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det8_pv_8"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else if(volName == "av_1_impr_1_LV_det9_pv_9"){
-  //   G4cout<<"SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
-  // else{
-  //   G4cout<<"ARG... SensitiveDetector::ProcessHits You are in "<<volName<<G4endl;
-  // }
+  G4double edep = aStep->GetTotalEnergyDeposit();//For _HP library
+
+  // const G4StepPoint* endPoint = aStep->GetPostStepPoint();
+  // G4double edep = endPoint->GetKineticEnergy();// For NeutronPhysics Hadr04 example. No physics at all except Neutron. No secondary particle.
+
+
+  // if(volName != "worldVOL") G4cout<<volName<<" heeeeeey "<<edep<<" MeV"<<G4endl;
+  // Call a method on EventAction to update some data based on this hit
+  if (eventAction) {
+    if(edep!=0){
+      if(volName == "LV_col") {eventAction->AddEdep(0, edep);}
+      else if(volName == "LV_det1") eventAction->AddEdep(1, edep);
+      else if(volName == "LV_det2") eventAction->AddEdep(2, edep);
+      else if(volName == "LV_det3") eventAction->AddEdep(3, edep);
+      else if(volName == "LV_det4") eventAction->AddEdep(4, edep);
+      else if(volName == "LV_det5") eventAction->AddEdep(5, edep);
+      else if(volName == "LV_det6") eventAction->AddEdep(6, edep);
+      else if(volName == "LV_det7") eventAction->AddEdep(7, edep);
+      else if(volName == "LV_det8") eventAction->AddEdep(8, edep);
+      else if(volName == "LV_det9") eventAction->AddEdep(9, edep);
+      else{G4cout<<"SensitiveDetector::ProcessHits. I don't know what this volume"<<volName<<"is~~ You better stop this play~~"<<G4endl;}
+    }//if(edep!=0)
+  }//if (eventAction)
+  else{G4cout<<"SensitiveDetector::ProcessHits. No event? Somethings wrong.. You better stop this"<<G4endl;}
   
   return true;
 }

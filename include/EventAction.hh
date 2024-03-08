@@ -39,18 +39,43 @@ class RunAction;
 
 class EventAction : public G4UserEventAction
 {
-  public:
-    EventAction(RunAction* runAction);
-    ~EventAction() override = default;
+public:
+  EventAction(RunAction* runAction);
+  // ~EventAction() override = default;
+  ~EventAction();
 
-    void BeginOfEventAction(const G4Event* event) override;
-    void EndOfEventAction(const G4Event* event) override;
+  void BeginOfEventAction(const G4Event* event) override;
+  void EndOfEventAction(const G4Event* event) override;
 
-    void AddEdep(G4double edep) { fEdep += edep; }
+  void AddEdep(G4int, G4double); //{
+  // // fColEdep += edep[0];
+  // // fDetEdep1 += edep[1];
+  // // fDetEdep2 += edep[2];
+  // // fDetEdep3 += edep[3];
+  // // fDetEdep4 += edep[4];
+  // // fDetEdep5 += edep[5];
+  // // fDetEdep6 += edep[6];
+  // // fDetEdep7 += edep[7];
+  // // fDetEdep8 += edep[8];
+  // // fDetEdep9 += edep[9];
+  // for(int i = 0 ; i < 10 ; i++){
+  //   fEdep[i] += edep[i];
+  // }
+  // } // get called from SteppingAction: adding edep for each step to one event.
 
-  private:
-    RunAction* fRunAction = nullptr;
-    G4double   fEdep = 0.;
+    private:
+     RunAction* fRunAction = nullptr;
+  G4double   *fEdep;
+  // G4double   fColEdep = 0.;
+  // G4double   fDetEdep1 = 0.;
+  // G4double   fDetEdep2 = 0.;
+  // G4double   fDetEdep3 = 0.;
+  // G4double   fDetEdep4 = 0.;
+  // G4double   fDetEdep5 = 0.;
+  // G4double   fDetEdep6 = 0.;
+  // G4double   fDetEdep7 = 0.;
+  // G4double   fDetEdep8 = 0.;
+  // G4double   fDetEdep9 = 0.;
 };
 
 

@@ -66,10 +66,10 @@ void DetectorConstruction::ConstructSDandField()
     new SensitiveDetector(colSDname);
   SDman->AddNewDetector( colSD );
    
-  G4String airSDname = "aairr";
-  SensitiveDetector* airSD = 
-    new SensitiveDetector(airSDname);
-  SDman->AddNewDetector( airSD );
+  // G4String airSDname = "aairr";
+  // SensitiveDetector* airSD = 
+  //   new SensitiveDetector(airSDname);
+  // SDman->AddNewDetector( airSD );
    
   ///////////////////////////////////////////////////////////////////////
   //
@@ -142,24 +142,24 @@ void DetectorConstruction::ConstructSDandField()
           G4cout << (*vit).value << " detector not found" << G4endl;
         }
       }//if ((*vit).type=="colli")
-      if ((*vit).type=="aair")
-      {
-        G4cout << "Attaching sensitive detector " << (*vit).value
-               << " to volume " << ((*iter).first)->GetName()
-               <<  G4endl << G4endl;
+      // if ((*vit).type=="aair")
+      // {
+      //   G4cout << "Attaching sensitive detector " << (*vit).value
+      //          << " to volume " << ((*iter).first)->GetName()
+      //          <<  G4endl << G4endl;
 
-        G4VSensitiveDetector* mydet = 
-          SDman->FindSensitiveDetector((*vit).value);
-        if(mydet) 
-        {
-          G4LogicalVolume* myvol = (*iter).first;
-          myvol->SetSensitiveDetector(mydet);
-        }
-        else
-        {
-          G4cout << (*vit).value << " detector not found" << G4endl;
-        }
-      }//if ((*vit).type=="aair")
+      //   G4VSensitiveDetector* mydet = 
+      //     SDman->FindSensitiveDetector((*vit).value);
+      //   if(mydet) 
+      //   {
+      //     G4LogicalVolume* myvol = (*iter).first;
+      //     myvol->SetSensitiveDetector(mydet);
+      //   }
+      //   else
+      //   {
+      //     G4cout << (*vit).value << " detector not found" << G4endl;
+      //   }
+      // }//if ((*vit).type=="aair")
     }
   }
 }

@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------
 # Setup the project
 cmake_minimum_required(VERSION 3.16...3.27)
-project(G04)
+project(col_det)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available Vis drivers by default
@@ -36,14 +36,14 @@ target_link_libraries(gdml_det ${Geant4_LIBRARIES} )
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
-# build G04. This is so that we can run the executable directly because it
+# build col_det. This is so that we can run the executable directly because it
 # relies on these scripts being in the current working directory.
 #
-set(G04_SCRIPTS
-    auxiliary.gdml g04.mac vis.mac
+set(col_det_SCRIPTS
+    auxiliary.gdml run.mac vis.mac
   )
 
-foreach(_script ${G04_SCRIPTS})
+foreach(_script ${col_det_SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
@@ -55,7 +55,7 @@ endforeach()
 # Add program to the project targets
 # (this avoids the need of typing the program name after make)
 #
-add_custom_target(G04 DEPENDS gdml_det)
+add_custom_target(col_det DEPENDS gdml_det)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX

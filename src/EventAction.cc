@@ -30,19 +30,35 @@
 
 #include "G4Event.hh"
 #include "G4RunManager.hh"
-
+#include "G4AnalysisManager.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 EventAction::EventAction(RunAction* runAction)
 : fRunAction(runAction)
-{}
+{
+  fEdep = new G4double[10];
+  //Initialize the array
+  for(int i = 0 ; i < 10 ; i++){
+    fEdep[i] = 0.;
+  }
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+EventAction::~EventAction()
+{
+  delete [] fEdep;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void EventAction::BeginOfEventAction(const G4Event*)
 {
   // fEdep = 0.;
+  for(int i = 0 ; i < 10 ; i++){
+    fEdep[i] = 0.;
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -51,7 +67,32 @@ void EventAction::EndOfEventAction(const G4Event*)
 {
   // // accumulate statistics in run action
   // fRunAction->AddEdep(fEdep);
+
+  // get analysis manager
+  auto analysisManager = G4AnalysisManager::Instance();
+
+  // fill histograms
+  for(int i = 0 ; i < 10 ; i++){
+    analysisManager->FillH1(i, fEdep[i]);
+  }
+  // analysisManager->FillH1(0, fEdep[0]);
+  // analysisManager->FillH1(1, fEdep[1]);
+  // analysisManager->FillH1(2, fEdep[2]);
+  // analysisManager->FillH1(3, fEdep[3]);
+  // analysisManager->FillH1(4, fEdep[4]);
+  // analysisManager->FillH1(5, fEdep[5]);
+  // analysisManager->FillH1(6, fEdep[6]);
+  // analysisManager->FillH1(7, fEdep[7]);
+  // analysisManager->FillH1(8, fEdep[8]);
+  // analysisManager->FillH1(9, fEdep[9]);
+
+  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+void EventAction::AddEdep(G4int id, G4double edep){
+  fEdep[id] += edep;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

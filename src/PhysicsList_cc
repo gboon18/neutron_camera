@@ -23,49 +23,71 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
+/// \file PhysicsList.cc
+/// \brief Implementation of the PhysicsList class
 //
-/// \file ActionInitialization.cc
-/// \brief Implementation of the ActionInitialization class
-
-#include "ActionInitialization.hh"
-#include "PrimaryGeneratorAction.hh"
-#include "RunAction.hh"
-#include "EventAction.hh"
-// #include "SteppingAction.hh"
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-ActionInitialization::ActionInitialization()
- : G4VUserActionInitialization()
-{}
+#include "PhysicsList.hh"
+
+#include "G4SystemOfUnits.hh"
+#include "G4UnitsTable.hh"
+
+#include "NeutronHPphysics.hh"
+
+// particles
+
+#include "G4BosonConstructor.hh"
+#include "G4LeptonConstructor.hh"
+#include "G4MesonConstructor.hh"
+#include "G4BosonConstructor.hh"
+#include "G4BaryonConstructor.hh"
+#include "G4IonConstructor.hh"
+#include "G4ShortLivedConstructor.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-ActionInitialization::~ActionInitialization()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ActionInitialization::BuildForMaster() const
+PhysicsList::PhysicsList()
 {
-   SetUserAction(new RunAction);
+  SetVerboseLevel(1);
+  
+  //add new units
+  //
+  new G4UnitDefinition( "mm2/g",  "mm2/g", "Surface/Mass", mm2/g);
+  new G4UnitDefinition( "um2/mg", "um2/mg","Surface/Mass", um*um/mg);  
+    
+  // Neutron Physics
+  RegisterPhysics( new NeutronHPphysics("neutronHP"));  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void ActionInitialization::Build() const
+void PhysicsList::ConstructParticle()
 {
-  SetUserAction(new PrimaryGeneratorAction);
+  G4BosonConstructor  pBosonConstructor;
+  pBosonConstructor.ConstructParticle();
 
-  auto runAction = new RunAction;
-  SetUserAction(runAction);
+  G4LeptonConstructor pLeptonConstructor;
+  pLeptonConstructor.ConstructParticle();
 
-  auto eventAction = new EventAction(runAction);
-  SetUserAction(eventAction);
+  G4MesonConstructor pMesonConstructor;
+  pMesonConstructor.ConstructParticle();
 
-  // SetUserAction(new SteppingAction(eventAction));  
-  
-}  
+  G4BaryonConstructor pBaryonConstructor;
+  pBaryonConstructor.ConstructParticle();
+
+  G4IonConstructor pIonConstructor;
+  pIonConstructor.ConstructParticle();
+
+  G4ShortLivedConstructor pShortLivedConstructor;
+  pShortLivedConstructor.ConstructParticle();  
+}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void PhysicsList::SetCuts()
+{
+  SetCutValue(0*mm, "proton");
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

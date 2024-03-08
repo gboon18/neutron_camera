@@ -24,48 +24,50 @@
 // ********************************************************************
 //
 //
-/// \file ActionInitialization.cc
-/// \brief Implementation of the ActionInitialization class
 
-#include "ActionInitialization.hh"
-#include "PrimaryGeneratorAction.hh"
-#include "RunAction.hh"
+#include "SteppingAction.hh"
 #include "EventAction.hh"
-// #include "SteppingAction.hh"
+#include "DetectorConstruction.hh"
+
+#include "G4Step.hh"
+#include "G4Event.hh"
+#include "G4RunManager.hh"
+#include "G4LogicalVolume.hh"
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-ActionInitialization::ActionInitialization()
- : G4VUserActionInitialization()
+SteppingAction::SteppingAction(EventAction* eventAction)
+: fEventAction(eventAction)
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-ActionInitialization::~ActionInitialization()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ActionInitialization::BuildForMaster() const
+void SteppingAction::UserSteppingAction(const G4Step* step)
 {
-   SetUserAction(new RunAction);
+
+  // if (!fScoringVolume) {
+  //   const auto detConstruction = static_cast<const DetectorConstruction*>(
+  //     G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+  //   fScoringVolume = detConstruction->GetScoringVolume();
+  // }
+
+  // get volume of the current step
+  G4LogicalVolume* volume
+    = step->GetPreStepPoint()->GetTouchableHandle()
+      ->GetVolume()->GetLogicalVolume();
+
+  // // check if we are in scoring volume
+  // if (volume != fScoringVolume) return;
+
+  const G4StepPoint* endPoint = step->GetPostStepPoint();
+  // collect energy deposited in this step
+  // G4double edepStep = step->GetTotalEnergyDeposit();
+  G4double edepStep = endPoint->GetKineticEnergy();
+  // fEventAction->AddEdep(edepStep);
+  // G4cout<<"jey"<<G4endl;
+  // if(edepStep!=0)G4cout<<volume->GetName()<<", "<<edepStep<<" MeV"<<G4endl;
+  // G4cout<<"yej"<<G4endl;
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ActionInitialization::Build() const
-{
-  SetUserAction(new PrimaryGeneratorAction);
-
-  auto runAction = new RunAction;
-  SetUserAction(runAction);
-
-  auto eventAction = new EventAction(runAction);
-  SetUserAction(eventAction);
-
-  // SetUserAction(new SteppingAction(eventAction));  
-  
-}  
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
