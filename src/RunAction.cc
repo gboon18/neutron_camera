@@ -57,27 +57,52 @@ RunAction::RunAction()
   // Declaring the analysisManager in RunAction ensures multi-threading
 
   // Create directories
-  //analysisManager->SetHistoDirectoryName("histograms");
-  //analysisManager->SetNtupleDirectoryName("ntuple");
+  // analysisManager->SetHistoDirectoryName("histograms");
+  // analysisManager->SetNtupleDirectoryName("ntuple");
   // analysisManager->SetVerboseLevel(1);
   analysisManager->SetVerboseLevel(0);
-  // analysisManager->SetNtupleMerging(true);
+  analysisManager->SetNtupleMerging(true);
   //   // Note: merging ntuples is available only with Root output
 
   // Book histograms, ntuple
   //
 
   // Creating histograms
-  analysisManager->CreateH1("col" ,"Edep in collimator", 100, 0., 15*keV);
-  analysisManager->CreateH1("det1" ,"Edep in detector 1", 100, 0., 15*keV);
-  analysisManager->CreateH1("det2" ,"Edep in detector 2", 100, 0., 15*keV);
-  analysisManager->CreateH1("det3" ,"Edep in detector 3", 100, 0., 15*keV);
-  analysisManager->CreateH1("det4" ,"Edep in detector 4", 100, 0., 15*keV);
-  analysisManager->CreateH1("det5" ,"Edep in detector 5", 100, 0., 15*keV);
-  analysisManager->CreateH1("det6" ,"Edep in detector 6", 100, 0., 15*keV);
-  analysisManager->CreateH1("det7" ,"Edep in detector 7", 100, 0., 15*keV);
-  analysisManager->CreateH1("det8" ,"Edep in detector 8", 100, 0., 15*keV);
-  analysisManager->CreateH1("det9" ,"Edep in detector 9", 100, 0., 15*keV);
+  // analysisManager->CreateH1("col" ,"Edep in collimator", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det1" ,"Edep in detector 1", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det2" ,"Edep in detector 2", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det3" ,"Edep in detector 3", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det4" ,"Edep in detector 4", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det5" ,"Edep in detector 5", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det6" ,"Edep in detector 6", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det7" ,"Edep in detector 7", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det8" ,"Edep in detector 8", 100, 0., 15*keV);
+  // analysisManager->CreateH1("det9" ,"Edep in detector 9", 100, 0., 15*keV);
+
+  analysisManager->CreateH1("col" ,"neutron in collimator", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
+  analysisManager->CreateH1("det1" ,"proton in collimator 1", 100, 0., 15);
+  analysisManager->CreateH1("det2" ,"gamma in collimator 2", 100, 0., 15);
+  analysisManager->CreateH1("det3" ,"e- in collimator 3", 1000, 0., 5500);
+  analysisManager->CreateH1("det4" ,"e+ in collimator 4", 1000, 0., 1500);
+  analysisManager->CreateH1("det5" ,"deuteron in collimator 5", 100, 0., 15);
+  analysisManager->CreateH1("det6" ,"C12 in collimator 6", 100, 0., 15);
+  analysisManager->CreateH1("det7" ,"C13 in collimator 7", 100, 0., 15);
+  analysisManager->CreateH1("det8" ,"C14 in collimator 8", 100, 0., 15);
+  analysisManager->CreateH1("det9" ,"others in collimator 9", 100, 0., 15);
+  analysisManager->CreateH1("det10" ,"all edep", 1000, 0., 5500);
+
+  // Creating ntuple
+  analysisManager->CreateNtuple("ptl", "Particle bank");
+  analysisManager->CreateNtupleSColumn("pid_str");
+  analysisManager->CreateNtupleIColumn("pid");
+  analysisManager->CreateNtupleDColumn("kine");
+  analysisManager->CreateNtupleDColumn("edep");
+  analysisManager->CreateNtupleDColumn("kine_e");//temporary for electron
+  analysisManager->CreateNtupleIColumn("evtid");//temporary for electron
+  analysisManager->CreateNtupleIColumn("trid");//temporary for electron
+  analysisManager->CreateNtupleIColumn("paid");//temporary for electron
+
+  analysisManager->FinishNtuple();
   
   
 }

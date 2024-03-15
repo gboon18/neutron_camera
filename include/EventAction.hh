@@ -62,9 +62,15 @@ public:
   //   fEdep[i] += edep[i];
   // }
   // } // get called from SteppingAction: adding edep for each step to one event.
+  void FillKine(G4int, G4double);
+  // void SetPid(G4String);
+  void SetPid(G4int, G4String);
+  // void FillNtuple();
+  void FillNtuple(G4int, G4int);
 
-    private:
-     RunAction* fRunAction = nullptr;
+private:
+  RunAction* fRunAction = nullptr;
+  G4int fEvtId;
   G4double   *fEdep;
   // G4double   fColEdep = 0.;
   // G4double   fDetEdep1 = 0.;

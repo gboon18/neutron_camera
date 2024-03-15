@@ -55,21 +55,11 @@ void DetectorConstruction::ConstructSDandField()
   //------------------------------------------------ 
 
   G4SDManager* SDman = G4SDManager::GetSDMpointer();
-  
-  G4String scintSDname = "Tracker";
-  SensitiveDetector* scintSD = 
-    new SensitiveDetector(scintSDname);
-  SDman->AddNewDetector( scintSD );
-   
+     
   G4String colSDname = "collimator";
   SensitiveDetector* colSD = 
     new SensitiveDetector(colSDname);
   SDman->AddNewDetector( colSD );
-   
-  // G4String airSDname = "aairr";
-  // SensitiveDetector* airSD = 
-  //   new SensitiveDetector(airSDname);
-  // SDman->AddNewDetector( airSD );
    
   ///////////////////////////////////////////////////////////////////////
   //
@@ -106,25 +96,7 @@ void DetectorConstruction::ConstructSDandField()
     for (G4GDMLAuxListType::const_iterator vit=(*iter).second.begin();
          vit!=(*iter).second.end();vit++)
     {
-      if ((*vit).type=="SensDet")
-      {
-        G4cout << "Attaching sensitive detector " << (*vit).value
-               << " to volume " << ((*iter).first)->GetName()
-               <<  G4endl << G4endl;
-
-        G4VSensitiveDetector* mydet = 
-          SDman->FindSensitiveDetector((*vit).value);
-        if(mydet) 
-        {
-          G4LogicalVolume* myvol = (*iter).first;
-          myvol->SetSensitiveDetector(mydet);
-        }
-        else
-        {
-          G4cout << (*vit).value << " detector not found" << G4endl;
-        }
-      }//if ((*vit).type=="SensDet")
-      if ((*vit).type=="colli")
+      if ((*vit).type=="coll")
       {
         G4cout << "Attaching sensitive detector " << (*vit).value
                << " to volume " << ((*iter).first)->GetName()
@@ -142,24 +114,6 @@ void DetectorConstruction::ConstructSDandField()
           G4cout << (*vit).value << " detector not found" << G4endl;
         }
       }//if ((*vit).type=="colli")
-      // if ((*vit).type=="aair")
-      // {
-      //   G4cout << "Attaching sensitive detector " << (*vit).value
-      //          << " to volume " << ((*iter).first)->GetName()
-      //          <<  G4endl << G4endl;
-
-      //   G4VSensitiveDetector* mydet = 
-      //     SDman->FindSensitiveDetector((*vit).value);
-      //   if(mydet) 
-      //   {
-      //     G4LogicalVolume* myvol = (*iter).first;
-      //     myvol->SetSensitiveDetector(mydet);
-      //   }
-      //   else
-      //   {
-      //     G4cout << (*vit).value << " detector not found" << G4endl;
-      //   }
-      // }//if ((*vit).type=="aair")
     }
   }
 }

@@ -53,8 +53,8 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   fParticleGun->SetParticleDefinition(
                particleTable->FindParticle(particleName="neutron"));
   fParticleGun->SetParticleEnergy(10.*keV);
-  fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., 40.*mm));
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., -1));
+  fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., 0.));
+  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 1., 0.));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

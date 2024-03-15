@@ -37,9 +37,9 @@
 EventAction::EventAction(RunAction* runAction)
 : fRunAction(runAction)
 {
-  fEdep = new G4double[10];
+  fEdep = new G4double[11];
   //Initialize the array
-  for(int i = 0 ; i < 10 ; i++){
+  for(int i = 0 ; i < 11 ; i++){
     fEdep[i] = 0.;
   }
 }
@@ -53,10 +53,12 @@ EventAction::~EventAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void EventAction::BeginOfEventAction(const G4Event*)
+void EventAction::BeginOfEventAction(const G4Event* aEvt)
 {
+  fEvtId = aEvt->GetEventID();
+  // G4cout<<"fEvtID = "<<fEvtId<<G4endl;
   // fEdep = 0.;
-  for(int i = 0 ; i < 10 ; i++){
+  for(int i = 0 ; i < 11 ; i++){
     fEdep[i] = 0.;
   }
 }
@@ -72,9 +74,10 @@ void EventAction::EndOfEventAction(const G4Event*)
   auto analysisManager = G4AnalysisManager::Instance();
 
   // fill histograms
-  for(int i = 0 ; i < 10 ; i++){
-    analysisManager->FillH1(i, fEdep[i]);
+  for(int id = 0 ; id < 11 ; id++){
+    analysisManager->FillH1(id, fEdep[id]);
   }
+    
   // analysisManager->FillH1(0, fEdep[0]);
   // analysisManager->FillH1(1, fEdep[1]);
   // analysisManager->FillH1(2, fEdep[2]);
@@ -86,13 +89,50 @@ void EventAction::EndOfEventAction(const G4Event*)
   // analysisManager->FillH1(8, fEdep[8]);
   // analysisManager->FillH1(9, fEdep[9]);
 
-  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void EventAction::AddEdep(G4int id, G4double edep){
   fEdep[id] += edep;
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->FillNtupleDColumn(3, edep);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void EventAction::FillKine(G4int id, G4double kine){
+  // get analysis manager
+  auto analysisManager = G4AnalysisManager::Instance();
+  if(id==0) analysisManager->FillH1(id, kine);
+  if(id==0) analysisManager->FillNtupleDColumn(2, kine);
+  if(id==3) analysisManager->FillNtupleDColumn(4, kine);//temporary for electron
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+// void EventAction::SetPid(G4String pid){
+//   // get analysis manager
+//   auto analysisManager = G4AnalysisManager::Instance();
+//   analysisManager->FillNtupleSColumn(0, pid);
+// }
+
+void EventAction::SetPid(G4int pid, G4String pid_str){
+  // get analysis manager
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->FillNtupleSColumn(0, pid_str);
+  analysisManager->FillNtupleIColumn(1, pid);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void EventAction::FillNtuple(G4int trackid, G4int parenid){
+  // get analysis manager
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->FillNtupleIColumn(5, fEvtId);  
+  analysisManager->FillNtupleIColumn(6, trackid);  
+  analysisManager->FillNtupleIColumn(7, parenid);  
+  analysisManager->AddNtupleRow();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

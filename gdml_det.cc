@@ -86,7 +86,8 @@ int main(int argc,char **argv)
   auto* runManager = G4RunManagerFactory::CreateRunManager();
 
   runManager->SetUserInitialization(new DetectorConstruction(parser));
-  runManager->SetUserInitialization(new QGSP_BIC_AllHP);
+  // runManager->SetUserInitialization(new QGSP_BIC_AllHP);
+  runManager->SetUserInitialization(new QGSP_BIC_HP);
   // runManager->SetUserInitialization(new QGSP_INCLXX_HP); // _HP part is for the neutron physics below 20 MeV
 
   //////////////////////////////////////////////////////////////////////////////////////
