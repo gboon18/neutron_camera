@@ -78,29 +78,50 @@ RunAction::RunAction()
   // analysisManager->CreateH1("det8" ,"Edep in detector 8", 100, 0., 15*keV);
   // analysisManager->CreateH1("det9" ,"Edep in detector 9", 100, 0., 15*keV);
 
-  analysisManager->CreateH1("col" ,"neutron in collimator", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
-  analysisManager->CreateH1("det1" ,"proton in collimator 1", 100, 0., 15);
-  analysisManager->CreateH1("det2" ,"gamma in collimator 2", 100, 0., 15);
-  analysisManager->CreateH1("det3" ,"e- in collimator 3", 1000, 0., 5500);
-  analysisManager->CreateH1("det4" ,"e+ in collimator 4", 1000, 0., 1500);
-  analysisManager->CreateH1("det5" ,"deuteron in collimator 5", 100, 0., 15);
-  analysisManager->CreateH1("det6" ,"C12 in collimator 6", 100, 0., 15);
-  analysisManager->CreateH1("det7" ,"C13 in collimator 7", 100, 0., 15);
-  analysisManager->CreateH1("det8" ,"C14 in collimator 8", 100, 0., 15);
-  analysisManager->CreateH1("det9" ,"others in collimator 9", 100, 0., 15);
-  analysisManager->CreateH1("det10" ,"all edep", 1000, 0., 5500);
+  analysisManager->CreateH1("l1b1" ,"Detector L1B1, efficiency: 100%", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
+  analysisManager->CreateH1("l1b2" ,"Detector L1B2, efficiency: 100%", 100, 0., 15);//1
+  analysisManager->CreateH1("l1b3" ,"Detector L1B3, efficiency: 100%", 100, 0., 15);//2
+  analysisManager->CreateH1("l1b4" ,"Detector L1B4, efficiency: 100%", 100, 0., 15);//3
+  analysisManager->CreateH1("l1b5" ,"Detector L1B5, efficiency: 100%", 100, 0., 15);//4
+
+  analysisManager->CreateH1("l2b1" ,"Detector L2B1, efficiency: 100%", 100, 0., 15);//5
+  analysisManager->CreateH1("l2b2" ,"Detector L2B2, efficiency: 100%", 100, 0., 15);//6
+  analysisManager->CreateH1("l2b3" ,"Detector L2B3, efficiency: 100%", 100, 0., 15);//7
+  analysisManager->CreateH1("l2b4" ,"Detector L2B4, efficiency: 100%", 100, 0., 15);//8
+  analysisManager->CreateH1("l2b5" ,"Detector L2B5, efficiency: 100%", 100, 0., 15);//10
+
+  analysisManager->CreateH1("l3b1" ,"Detector L3B1, efficiency: 100%", 100, 0., 15);//11
+  analysisManager->CreateH1("l3b2" ,"Detector L3B2, efficiency: 100%", 100, 0., 15);//12
+  analysisManager->CreateH1("l3b3" ,"Detector L3B3, efficiency: 100%", 100, 0., 15);//13
+  analysisManager->CreateH1("l3b4" ,"Detector L3B4, efficiency: 100%", 100, 0., 15);//14
+  analysisManager->CreateH1("l3b5" ,"Detector L3B5, efficiency: 100%", 100, 0., 15);//15
+
+  // analysisManager->CreateH1("det1" ,"proton in collimator 1", 100, 0., 15);
+  // analysisManager->CreateH1("det2" ,"gamma in collimator 2", 100, 0., 15);
+  // analysisManager->CreateH1("det3" ,"e- in collimator 3", 1000, 0., 5500);
+  // analysisManager->CreateH1("det4" ,"e+ in collimator 4", 1000, 0., 1500);
+  // analysisManager->CreateH1("det5" ,"deuteron in collimator 5", 100, 0., 15);
+  // analysisManager->CreateH1("det6" ,"C12 in collimator 6", 100, 0., 15);
+  // analysisManager->CreateH1("det7" ,"C13 in collimator 7", 100, 0., 15);
+  // analysisManager->CreateH1("det8" ,"C14 in collimator 8", 100, 0., 15);
+  // analysisManager->CreateH1("det9" ,"others in collimator 9", 100, 0., 15);
+  // analysisManager->CreateH1("det10" ,"all edep", 1000, 0., 5500);
 
   // Creating ntuple
   analysisManager->CreateNtuple("ptl", "Particle bank");
-  analysisManager->CreateNtupleSColumn("pid_str");
-  analysisManager->CreateNtupleIColumn("pid");
-  analysisManager->CreateNtupleDColumn("kine");
-  analysisManager->CreateNtupleDColumn("edep");
-  analysisManager->CreateNtupleDColumn("kine_e");//temporary for electron
-  analysisManager->CreateNtupleIColumn("evtid");//temporary
-  analysisManager->CreateNtupleIColumn("trid");//temporary
-  analysisManager->CreateNtupleIColumn("paid");//temporary
-  analysisManager->CreateNtupleDColumn("kine_r");//temporary
+  analysisManager->CreateNtupleSColumn("pid_str"); //0
+  analysisManager->CreateNtupleIColumn("pid");//1
+  analysisManager->CreateNtupleDColumn("kine");//2
+  analysisManager->CreateNtupleDColumn("edep");//3
+  analysisManager->CreateNtupleDColumn("x");//4
+  analysisManager->CreateNtupleDColumn("y");//5
+  analysisManager->CreateNtupleDColumn("z");//6
+
+  // analysisManager->CreateNtupleDColumn("kine_e");//4. temporary for electron
+  // analysisManager->CreateNtupleIColumn("evtid");//5. temporary
+  // analysisManager->CreateNtupleIColumn("trid");//6. temporary
+  // analysisManager->CreateNtupleIColumn("paid");//7. temporary
+  // analysisManager->CreateNtupleDColumn("kine_r");//8. temporary
 
   analysisManager->FinishNtuple();
   

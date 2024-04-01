@@ -37,9 +37,9 @@
 EventAction::EventAction(RunAction* runAction)
 : fRunAction(runAction)
 {
-  fEdep = new G4double[11];
+  fEdep = new G4double[ndet];
   //Initialize the array
-  for(int i = 0 ; i < 11 ; i++){
+  for(int i = 0 ; i < ndet ; i++){
     fEdep[i] = 0.;
   }
 }
@@ -58,7 +58,7 @@ void EventAction::BeginOfEventAction(const G4Event* aEvt)
   fEvtId = aEvt->GetEventID();
   // G4cout<<"fEvtID = "<<fEvtId<<G4endl;
   // fEdep = 0.;
-  for(int i = 0 ; i < 11 ; i++){
+  for(int i = 0 ; i < ndet ; i++){
     fEdep[i] = 0.;
   }
 }
@@ -74,20 +74,10 @@ void EventAction::EndOfEventAction(const G4Event*)
   auto analysisManager = G4AnalysisManager::Instance();
 
   // fill histograms
-  for(int id = 0 ; id < 11 ; id++){
+  for(int id = 0 ; id < ndet ; id++){
     analysisManager->FillH1(id, fEdep[id]);
   }
     
-  // analysisManager->FillH1(0, fEdep[0]);
-  // analysisManager->FillH1(1, fEdep[1]);
-  // analysisManager->FillH1(2, fEdep[2]);
-  // analysisManager->FillH1(3, fEdep[3]);
-  // analysisManager->FillH1(4, fEdep[4]);
-  // analysisManager->FillH1(5, fEdep[5]);
-  // analysisManager->FillH1(6, fEdep[6]);
-  // analysisManager->FillH1(7, fEdep[7]);
-  // analysisManager->FillH1(8, fEdep[8]);
-  // analysisManager->FillH1(9, fEdep[9]);
 
 }
 
@@ -95,8 +85,15 @@ void EventAction::EndOfEventAction(const G4Event*)
 
 void EventAction::AddEdep(G4int id, G4double edep){
   fEdep[id] += edep;
+  // auto analysisManager = G4AnalysisManager::Instance();
+  // analysisManager->FillNtupleDColumn(3, edep);//edep
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void EventAction::SetEdep(G4double edep){
   auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->FillNtupleDColumn(3, edep);
+  analysisManager->FillNtupleDColumn(3, edep);//edep
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -104,10 +101,10 @@ void EventAction::AddEdep(G4int id, G4double edep){
 void EventAction::FillKine(G4int id, G4double kine){
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
-  if(id==0) analysisManager->FillH1(id, kine);
-  if(id==0) analysisManager->FillNtupleDColumn(2, kine);
-  if(id==2) analysisManager->FillNtupleDColumn(8, kine);//temporary for gamma
-  if(id==3) analysisManager->FillNtupleDColumn(4, kine);//temporary for electron
+  if(id==0) analysisManager->FillH1(id, kine);//neutron kinetic energy
+  if(id==0) analysisManager->FillNtupleDColumn(2, kine);//kinetic energy
+  // if(id==2) analysisManager->FillNtupleDColumn(8, kine);//temporary for gamma
+  // if(id==3) analysisManager->FillNtupleDColumn(4, kine);//temporary for electron
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -118,21 +115,26 @@ void EventAction::FillKine(G4int id, G4double kine){
 //   analysisManager->FillNtupleSColumn(0, pid);
 // }
 
-void EventAction::SetPid(G4int pid, G4String pid_str){
+// void EventAction::SetPid(G4int pid, G4String pid_str){
+void EventAction::SetPidAndPos(G4int pid, G4String pid_str, G4ThreeVector pos){
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
   analysisManager->FillNtupleSColumn(0, pid_str);
   analysisManager->FillNtupleIColumn(1, pid);
+  analysisManager->FillNtupleDColumn(4, pos.getX());
+  analysisManager->FillNtupleDColumn(5, pos.getY());
+  analysisManager->FillNtupleDColumn(6, pos.getZ());
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void EventAction::FillNtuple(G4int trackid, G4int parenid){
+void EventAction::FillNtuple(){
+// void EventAction::FillNtuple(G4int trackid, G4int parenid){
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->FillNtupleIColumn(5, fEvtId);  
-  analysisManager->FillNtupleIColumn(6, trackid);  
-  analysisManager->FillNtupleIColumn(7, parenid);  
+  // analysisManager->FillNtupleIColumn(5, fEvtId);  
+  // analysisManager->FillNtupleIColumn(6, trackid);  
+  // analysisManager->FillNtupleIColumn(7, parenid);  
   analysisManager->AddNtupleRow();
 }
 

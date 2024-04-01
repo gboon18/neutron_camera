@@ -84,10 +84,12 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   G4int pid = track->GetDynamicParticle()->GetParticleDefinition()->GetPDGEncoding();
   G4double edep = aStep->GetTotalEnergyDeposit()/CLHEP::keV;//For _HP library
   G4double kine = track->GetKineticEnergy()/CLHEP::keV;
-  G4double tote = track->GetTotalEnergy()/CLHEP::keV;
+  // G4double tote = track->GetTotalEnergy()/CLHEP::keV;
 
-  G4double trackid = track->GetTrackID();
-  G4double parenid = track->GetParentID();
+  G4ThreeVector pos = track->GetPosition();
+  
+  // G4double trackid = track->GetTrackID();
+  // G4double parenid = track->GetParentID();
 
   // const G4StepPoint* endPoint = aStep->GetPostStepPoint();
   // G4double edep = endPoint->GetKineticEnergy();// For NeutronPhysics Hadr04 example. No physics at all except Neutron. No secondary particle.
@@ -104,46 +106,57 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     if(
        volName.compare(0,4,"LV_L") == 0 // == "LV_L1B1"
        ) {
-      if(edep!=0){
+      if(edep!=0 || kine!=0){
 	int level = std::stoi(volName.substr(4,1));
 	int detNo = std::stoi(volName.substr(6,1));
 	for(int i_l=0 ; i_l < 3 ; i_l++){
 	  for(int i_d=0 ; i_d < 5 ; i_d++){
-	    if(i_l+1==level && i_d+1==detNo) {G4cout<<volName<<", level: "<<level<<", detNo: "<<detNo<<G4endl; goto detEndOfLoop;}
+	    if(i_l+1==level && i_d+1==detNo) {
+	      // G4cout<<volName<<", level: "<<level<<", detNo: "<<detNo<<G4endl;
+	      if(particleName == "proton" || particleName == "gamma"){eventAction->AddEdep(5*i_l+i_d, edep);}//neutron leaves no edep, it only has kinetic energy.
+	      // else{G4cout<<particleName<<" detected in L"<<i_l<<"B"<<i_d<<" with "<<edep<<" keV or "<<kine<<" keV"<<G4endl;}
+	      G4cout<<particleName<<" detected in L"<<i_l<<"B"<<i_d<<" with "<<edep<<" keV or "<<kine<<" keV"<<G4endl;	      
+	      goto detEndOfLoop;}//if(i_l+1==level && i_d+1==detNo)
 	  }
 	}
       detEndOfLoop:
-	// G4cout<<volName<<G4endl;
-	if(particleName == "proton") eventAction->AddEdep(1, edep);
-	// else if(particleName == "gamma") eventAction->AddEdep(2, edep);
-	// else if(particleName == "gamma") eventAction->AddEdep(2, tote);//temporary
-	else if(particleName == "gamma") {eventAction->AddEdep(2, edep); eventAction->FillKine(2, kine);}//temporary
-	else if(particleName == "e-") {eventAction->AddEdep(3, edep);eventAction->FillKine(3, kine);}//temporary
-	else if(particleName == "e+") eventAction->AddEdep(4, edep);
-	else if(particleName == "deuteron") eventAction->AddEdep(5, edep);
-	else if(particleName == "C12") eventAction->AddEdep(6, edep);
-	else if(particleName == "C13") eventAction->AddEdep(7, edep);
-	else if(particleName == "C14") eventAction->AddEdep(8, edep);
-	else eventAction->AddEdep(9, edep);
-	eventAction->AddEdep(10, edep);
-	// if(edep>0.01) G4cout<<"The particle is "<<particleName<<". Edep = "<<edep<<" MeV"<<G4endl;
-	// if(particleName == "neutron") G4cout<<"The particle is "<<particleName<<". Edep = "<<edep<<" MeV"<<G4endl;
-	// else {G4cout<<"The particle is "<<particleName<<". Edep = "<<edep<<" MeV"<<G4endl;}
-      }//if(edep!=0)
-      if(kine!=0){
-	if(particleName == "neutron") eventAction->FillKine(0, kine);
-      }//if(kine!=0)
-      if(edep!=0 || kine!=0) {/*eventAction->SetPid(particleName);*/ eventAction->SetPid(pid, particleName); eventAction->FillNtuple(trackid, parenid);}
+	;
+      }
     }//if(volName.compare(0,4,"LV_L") == 0)
     else if(
 	    volName.compare(0,7,"LV_Coll") == 0
 	    ){
-      int level = std::stoi(volName.substr(7,1));
-      for(int i_l=0 ; i_l < 3 ; i_l++){
-	if(i_l+1==level) {G4cout<<volName<<", level: "<<level<<G4endl; goto collEndOfLoop;}
+      // G4cout<<volName<<G4endl;
+      // int level = std::stoi(volName.substr(7,1));
+      //   for(int i_l=0 ; i_l < 3 ; i_l++){
+      // 	if(i_l+1==level) {G4cout<<volName<<", level: "<<level<<G4endl; goto collEndOfLoop;}
+      //   }
+      // collEndOfLoop:
+      // 	if(particleName == "proton") eventAction->AddEdep(1, edep);
+      // 	else if(particleName == "gamma") {eventAction->AddEdep(2, edep);
+      // 	  // eventAction->FillKine(2, kine);
+      // 	}//temporary
+      // 	else if(particleName == "e-") {eventAction->AddEdep(3, edep);
+      // 	  // eventAction->FillKine(3, kine);
+      // 	}//temporary
+      // 	else if(particleName == "e+") eventAction->AddEdep(4, edep);
+      // 	else if(particleName == "deuteron") eventAction->AddEdep(5, edep);
+      // 	else if(particleName == "C12") eventAction->AddEdep(6, edep);
+      // 	else if(particleName == "C13") eventAction->AddEdep(7, edep);
+      // 	else if(particleName == "C14") eventAction->AddEdep(8, edep);
+      // 	else eventAction->AddEdep(9, edep);
+      // 	eventAction->AddEdep(10, edep);
+      // }//if(edep!=0)
+      // if(kine!=0){
+      // 	if(particleName == "neutron") eventAction->FillKine(0, kine);
+      // }//if(kine!=0)
+      if(edep!=0 || kine!=0) {/*eventAction->SetPid(particleName);*/
+	// eventAction->SetPid(pid, particleName);
+	eventAction->SetEdep(edep);
+	eventAction->SetPidAndPos(pid, particleName, pos);
+	eventAction->FillNtuple();
+	// eventAction->FillNtuple(trackid, parenid);
       }
-    collEndOfLoop:
-      ;  
     }//else if(volName.compare(0,7,"LV_Coll") == 0)
     else{G4cout<<"SensitiveDetector::ProcessHits. I don't know what this volume "<<volName<<" is~~ You better stop this play~~"<<G4endl;}
   }//if (eventAction)

@@ -1439,7 +1439,11 @@ CMakeFiles/gdml_det.dir/src/ActionInitialization.cc.o: ../src/ActionInitializati
   /usr/local/include/Geant4/G4MergeMode.hh \
   /usr/local/include/Geant4/G4Accumulable.icc \
   ../include/EventAction.hh \
-  /usr/local/include/Geant4/G4UserEventAction.hh
+  /usr/local/include/Geant4/G4UserEventAction.hh \
+  /usr/local/include/Geant4/G4ThreeVector.hh \
+  /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.h \
+  /usr/local/include/Geant4/CLHEP/Utility/defs.h \
+  /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.icc
 
 CMakeFiles/gdml_det.dir/src/DetectorConstruction.cc.o: ../src/DetectorConstruction.cc \
   /usr/include/stdc-predef.h \
@@ -2433,11 +2437,15 @@ CMakeFiles/gdml_det.dir/src/EventAction.cc.o: ../src/EventAction.cc \
   /usr/include/c++/11/bits/parse_numbers.h \
   /usr/include/c++/11/bits/std_mutex.h \
   /usr/include/c++/11/bits/unique_lock.h \
+  /usr/local/include/Geant4/G4ThreeVector.hh \
+  /usr/local/include/Geant4/globals.hh \
+  /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.h \
+  /usr/local/include/Geant4/CLHEP/Utility/defs.h \
+  /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.icc \
   ../include/RunAction.hh \
   /usr/local/include/Geant4/G4UserRunAction.hh \
   /usr/local/include/Geant4/G4Accumulable.hh \
   /usr/local/include/Geant4/G4VAccumulable.hh \
-  /usr/local/include/Geant4/globals.hh \
   /usr/local/include/Geant4/G4VAccumulable.icc \
   /usr/local/include/Geant4/G4MergeMode.hh \
   /usr/local/include/Geant4/G4Accumulable.icc \
@@ -2452,9 +2460,6 @@ CMakeFiles/gdml_det.dir/src/EventAction.cc.o: ../src/EventAction.cc \
   /usr/local/include/Geant4/G4PrimaryVertex.hh \
   /usr/local/include/Geant4/G4PrimaryParticle.hh \
   /usr/local/include/Geant4/G4ThreeVector.hh \
-  /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.h \
-  /usr/local/include/Geant4/CLHEP/Utility/defs.h \
-  /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.icc \
   /usr/local/include/Geant4/pwdefs.hh \
   /usr/local/include/Geant4/G4HCofThisEvent.hh \
   /usr/local/include/Geant4/G4VHitsCollection.hh \

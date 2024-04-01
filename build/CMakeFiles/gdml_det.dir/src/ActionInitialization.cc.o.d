@@ -249,4 +249,8 @@ CMakeFiles/gdml_det.dir/src/ActionInitialization.cc.o: \
  /usr/local/include/Geant4/G4MergeMode.hh \
  /usr/local/include/Geant4/G4Accumulable.icc \
  /home/vboxuser/playground/geant4/neutron_cam/nc/include/EventAction.hh \
- /usr/local/include/Geant4/G4UserEventAction.hh
+ /usr/local/include/Geant4/G4UserEventAction.hh \
+ /usr/local/include/Geant4/G4ThreeVector.hh \
+ /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.h \
+ /usr/local/include/Geant4/CLHEP/Utility/defs.h \
+ /usr/local/include/Geant4/CLHEP/Vector/ThreeVector.icc
