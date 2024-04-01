@@ -107,21 +107,33 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
        volName.compare(0,4,"LV_L") == 0 // == "LV_L1B1"
        ) {
       if(edep!=0 || kine!=0){
-	int level = std::stoi(volName.substr(4,1));
-	int detNo = std::stoi(volName.substr(6,1));
-	for(int i_l=0 ; i_l < 3 ; i_l++){
-	  for(int i_d=0 ; i_d < 5 ; i_d++){
-	    if(i_l+1==level && i_d+1==detNo) {
-	      // G4cout<<volName<<", level: "<<level<<", detNo: "<<detNo<<G4endl;
-	      if(particleName == "proton" || particleName == "gamma"){eventAction->AddEdep(5*i_l+i_d, edep);}//neutron leaves no edep, it only has kinetic energy.
-	      // else{G4cout<<particleName<<" detected in L"<<i_l<<"B"<<i_d<<" with "<<edep<<" keV or "<<kine<<" keV"<<G4endl;}
-	      G4cout<<particleName<<" detected in L"<<i_l<<"B"<<i_d<<" with "<<edep<<" keV or "<<kine<<" keV"<<G4endl;	      
-	      goto detEndOfLoop;}//if(i_l+1==level && i_d+1==detNo)
-	  }
-	}
-      detEndOfLoop:
-	;
-      }
+      // 	int level = std::stoi(volName.substr(4,1));
+      // 	int detNo = std::stoi(volName.substr(6,1));
+      // 	for(int i_l=0 ; i_l < 3 ; i_l++){
+      // 	  for(int i_d=0 ; i_d < 5 ; i_d++){
+      // 	    if(i_l+1==level && i_d+1==detNo) {
+      // 	      // G4cout<<volName<<", level: "<<level<<", detNo: "<<detNo<<G4endl;
+      // 	      // if(particleName == "proton" || particleName == "gamma"){eventAction->AddEdep(5*i_l+i_d, edep);}//neutron leaves no edep, it only has kinetic energy.
+      // 	      // // else{G4cout<<particleName<<" detected in L"<<i_l<<"B"<<i_d<<" with "<<edep<<" keV or "<<kine<<" keV"<<G4endl;}
+      // 	      // G4cout<<particleName<<" detected in L"<<i_l<<"B"<<i_d<<" with "<<edep<<" keV or "<<kine<<" keV"<<G4endl;
+      // 	      if(kine!=0 && particleName == "neutron") eventAction->AddEdep(5*i_l+i_d, kine); //04/01/2024, for now, once itt touches thee detector,  recorddd it,,, and kiill it
+      // 	      else if(edep!=0 || particleName == "proton") eventAction->AddEdep(5*i_l+i_d + 16, edep);
+      // 	      else if(edep!=0 || particleName == "gamma") eventAction->AddEdep(5*i_l+i_d + 16*2, edep);
+      // 	      else if(edep!=0) eventAction->AddEdep(5*i_l+i_d + 16*3, edep);
+      // 	      goto detEndOfLoop;}//if(i_l+1==level && i_d+1==detNo)
+      // 	  }
+      // 	}
+      // detEndOfLoop:
+      // 	;
+
+	// eventAction->SetPid(pid, particleName);
+	eventAction->SetEdep(0, edep);
+	eventAction->FillKine(0, 0, kine);
+	eventAction->SetPidAndPos(0, pid, particleName, pos);
+	eventAction->FillNtuple(0);
+	// eventAction->FillNtuple(trackid, parenid);
+
+      }//if(edep!=0 || kine!=0){
     }//if(volName.compare(0,4,"LV_L") == 0)
     else if(
 	    volName.compare(0,7,"LV_Coll") == 0
@@ -152,9 +164,10 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
       // }//if(kine!=0)
       if(edep!=0 || kine!=0) {/*eventAction->SetPid(particleName);*/
 	// eventAction->SetPid(pid, particleName);
-	eventAction->SetEdep(edep);
-	eventAction->SetPidAndPos(pid, particleName, pos);
-	eventAction->FillNtuple();
+	eventAction->SetEdep(1, edep);
+	eventAction->FillKine(1, 0, kine);
+	eventAction->SetPidAndPos(1, pid, particleName, pos);
+	eventAction->FillNtuple(1);
 	// eventAction->FillNtuple(trackid, parenid);
       }
     }//else if(volName.compare(0,7,"LV_Coll") == 0)
