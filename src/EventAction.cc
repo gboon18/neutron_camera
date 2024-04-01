@@ -106,6 +106,7 @@ void EventAction::FillKine(G4int id, G4double kine){
   auto analysisManager = G4AnalysisManager::Instance();
   if(id==0) analysisManager->FillH1(id, kine);
   if(id==0) analysisManager->FillNtupleDColumn(2, kine);
+  if(id==2) analysisManager->FillNtupleDColumn(8, kine);//temporary for gamma
   if(id==3) analysisManager->FillNtupleDColumn(4, kine);//temporary for electron
 }
 

@@ -41,6 +41,9 @@
 #include "G4RunManager.hh"
 #include "EventAction.hh"
 
+#include <iostream>
+#include <string>
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 SensitiveDetector::SensitiveDetector(const G4String& name)
@@ -67,7 +70,8 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   // G4cout << "SensitiveDetector::ProcessHits Processing hits ...." << G4endl;
   // G4String volName = aStep->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetName();
   G4LogicalVolume* volume = aStep->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
-  G4String volName = volume->GetName();
+  // G4String volName = volume->GetName();
+  std::string volName = volume->GetName();
   G4Material* material = volume->GetMaterial();
   G4String matName = material->GetName();
   G4Track* track = aStep->GetTrack();
@@ -80,6 +84,7 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   G4int pid = track->GetDynamicParticle()->GetParticleDefinition()->GetPDGEncoding();
   G4double edep = aStep->GetTotalEnergyDeposit()/CLHEP::keV;//For _HP library
   G4double kine = track->GetKineticEnergy()/CLHEP::keV;
+  G4double tote = track->GetTotalEnergy()/CLHEP::keV;
 
   G4double trackid = track->GetTrackID();
   G4double parenid = track->GetParentID();
@@ -92,21 +97,28 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   // Call a method on EventAction to update some data based on this hit
   // if(particleName == "neutron" && edep != 0) G4cout<<"The volume is "<<volName<<". The particle is "<<particleName<<". Edep = "<<edep<<" MeV"<<G4endl;
   // if(particleName == "neutron" && kine!=0) G4cout<<"The volume is "<<volName<<". The particle is "<<particleName<<". Kinetic Energy = "<<kine<<" MeV"<<G4endl;
+
+  //Detectors. No neutron specific definition done
+  // if(volName.compare(0,4,"LV_L") == 0)G4cout<<volName<<",  "<<volName.compare(0,4,"LV_L")<<G4endl;
   if (eventAction) {
     if(
-       // volName == "LV_000_1136__001"
-       // ||
-       // volName == "LV_000_1136__002"
-       // ||
-       // volName == "LV_000_1136__003"
-       // ||
-       // volName == "LV_000_1136__004"
-       volName == "LV_Box"
+       volName.compare(0,4,"LV_L") == 0 // == "LV_L1B1"
        ) {
       if(edep!=0){
+	int level = std::stoi(volName.substr(4,1));
+	int detNo = std::stoi(volName.substr(6,1));
+	for(int i_l=0 ; i_l < 3 ; i_l++){
+	  for(int i_d=0 ; i_d < 5 ; i_d++){
+	    if(i_l+1==level && i_d+1==detNo) {G4cout<<volName<<", level: "<<level<<", detNo: "<<detNo<<G4endl; goto detEndOfLoop;}
+	  }
+	}
+      detEndOfLoop:
+	// G4cout<<volName<<G4endl;
 	if(particleName == "proton") eventAction->AddEdep(1, edep);
-	else if(particleName == "gamma") eventAction->AddEdep(2, edep);
-	else if(particleName == "e-") {eventAction->AddEdep(3, edep);eventAction->FillKine(3, kine);}
+	// else if(particleName == "gamma") eventAction->AddEdep(2, edep);
+	// else if(particleName == "gamma") eventAction->AddEdep(2, tote);//temporary
+	else if(particleName == "gamma") {eventAction->AddEdep(2, edep); eventAction->FillKine(2, kine);}//temporary
+	else if(particleName == "e-") {eventAction->AddEdep(3, edep);eventAction->FillKine(3, kine);}//temporary
 	else if(particleName == "e+") eventAction->AddEdep(4, edep);
 	else if(particleName == "deuteron") eventAction->AddEdep(5, edep);
 	else if(particleName == "C12") eventAction->AddEdep(6, edep);
@@ -122,7 +134,17 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
 	if(particleName == "neutron") eventAction->FillKine(0, kine);
       }//if(kine!=0)
       if(edep!=0 || kine!=0) {/*eventAction->SetPid(particleName);*/ eventAction->SetPid(pid, particleName); eventAction->FillNtuple(trackid, parenid);}
-    }//sensitive volume check
+    }//if(volName.compare(0,4,"LV_L") == 0)
+    else if(
+	    volName.compare(0,7,"LV_Coll") == 0
+	    ){
+      int level = std::stoi(volName.substr(7,1));
+      for(int i_l=0 ; i_l < 3 ; i_l++){
+	if(i_l+1==level) {G4cout<<volName<<", level: "<<level<<G4endl; goto collEndOfLoop;}
+      }
+    collEndOfLoop:
+      ;  
+    }//else if(volName.compare(0,7,"LV_Coll") == 0)
     else{G4cout<<"SensitiveDetector::ProcessHits. I don't know what this volume "<<volName<<" is~~ You better stop this play~~"<<G4endl;}
   }//if (eventAction)
   else{G4cout<<"SensitiveDetector::ProcessHits. No event? Somethings wrong.. You better stop this"<<G4endl;}

@@ -45,7 +45,6 @@
 RunAction::RunAction()
 {
 
-  //RunAction copied from B1. Usage of G4AnalysisManager copied from B4b
 
   // // set printing event number per each event
   // G4RunManager::GetRunManager()->SetPrintProgress(1);
@@ -98,9 +97,10 @@ RunAction::RunAction()
   analysisManager->CreateNtupleDColumn("kine");
   analysisManager->CreateNtupleDColumn("edep");
   analysisManager->CreateNtupleDColumn("kine_e");//temporary for electron
-  analysisManager->CreateNtupleIColumn("evtid");//temporary for electron
-  analysisManager->CreateNtupleIColumn("trid");//temporary for electron
-  analysisManager->CreateNtupleIColumn("paid");//temporary for electron
+  analysisManager->CreateNtupleIColumn("evtid");//temporary
+  analysisManager->CreateNtupleIColumn("trid");//temporary
+  analysisManager->CreateNtupleIColumn("paid");//temporary
+  analysisManager->CreateNtupleDColumn("kine_r");//temporary
 
   analysisManager->FinishNtuple();
   
