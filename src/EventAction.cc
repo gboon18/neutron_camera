@@ -122,7 +122,7 @@ void EventAction::FillKine(G4int id_detcol, G4int id, G4double kine){
 
 // void EventAction::SetPid(G4int pid, G4String pid_str){
 // void EventAction::SetPidAndPos(G4int pid, G4String pid_str, G4ThreeVector pos){
-void EventAction::SetPidAndPos(G4int id_detcol, G4int pid, G4String pid_str, G4ThreeVector pos){
+void EventAction::SetPidPosTime(G4int id_detcol, G4int id_block, G4int pid, G4String pid_str, G4ThreeVector pos, G4double gtime){
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
   // analysisManager->FillNtupleSColumn(0, pid_str);
@@ -135,7 +135,17 @@ void EventAction::SetPidAndPos(G4int id_detcol, G4int pid, G4String pid_str, G4T
   analysisManager->FillNtupleDColumn(id_detcol, 4, pos.getX());
   analysisManager->FillNtupleDColumn(id_detcol, 5, pos.getY());
   analysisManager->FillNtupleDColumn(id_detcol, 6, pos.getZ());
+  analysisManager->FillNtupleDColumn(id_detcol, 7, gtime);
+  analysisManager->FillNtupleIColumn(id_detcol, 8, id_block);
+  
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void EventAction::SetInOut(G4int inout){
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->FillNtupleIColumn(0, 9, inout);  
+ }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

@@ -74,7 +74,9 @@ public:
   // void SetPid(G4int, G4String);
 
   // void SetPidAndPos(G4int, G4String, G4ThreeVector);
-  void SetPidAndPos(G4int, G4int, G4String, G4ThreeVector);
+  void SetPidPosTime(G4int, G4int, G4int, G4String, G4ThreeVector, G4double);
+
+  void SetInOut(G4int);
 
   // void FillNtuple();
   void FillNtuple(G4int);

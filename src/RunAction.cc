@@ -173,15 +173,20 @@ RunAction::RunAction()
   analysisManager->CreateNtupleDColumn("x");//4
   analysisManager->CreateNtupleDColumn("y");//5
   analysisManager->CreateNtupleDColumn("z");//6
+  analysisManager->CreateNtupleDColumn("gtime");//7
+  analysisManager->CreateNtupleIColumn("block");//8
+  analysisManager->CreateNtupleIColumn("inout");//9 // recored if particle is coming, leaving or neither
 
   analysisManager->CreateNtuple("col", "Collimator particle bank");
-  analysisManager->CreateNtupleSColumn("pid_str"); //0+7
-  analysisManager->CreateNtupleIColumn("pid");//1+7
-  analysisManager->CreateNtupleDColumn("kine");//2+7
-  analysisManager->CreateNtupleDColumn("edep");//3+7
-  analysisManager->CreateNtupleDColumn("x");//4+7
-  analysisManager->CreateNtupleDColumn("y");//5+7
-  analysisManager->CreateNtupleDColumn("z");//6+7
+  analysisManager->CreateNtupleSColumn("pid_str"); //0
+  analysisManager->CreateNtupleIColumn("pid");//1
+  analysisManager->CreateNtupleDColumn("kine");//2
+  analysisManager->CreateNtupleDColumn("edep");//3
+  analysisManager->CreateNtupleDColumn("x");//4
+  analysisManager->CreateNtupleDColumn("y");//5
+  analysisManager->CreateNtupleDColumn("z");//6
+  analysisManager->CreateNtupleDColumn("gtime");//7
+  analysisManager->CreateNtupleIColumn("block");//8
 
   // analysisManager->CreateNtupleDColumn("kine_e");//4. temporary for electron
   // analysisManager->CreateNtupleIColumn("evtid");//5. temporary

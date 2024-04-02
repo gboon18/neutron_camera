@@ -35,6 +35,7 @@
 // --------------------------------------------------------------
 
 #include <vector>
+#include <time.h>
 
 #include "ActionInitialization.hh"
 #include "DetectorConstruction.hh"
@@ -57,6 +58,8 @@
 
 int main(int argc,char **argv)
 {
+  time_t now = time(0);
+  
   G4cout << G4endl;
   G4cout << "Usage: gdml_det <intput_gdml_file:mandatory>"
 	 << G4endl;
@@ -152,4 +155,16 @@ int main(int argc,char **argv)
 
   delete visManager;
   delete runManager;
+
+  time_t then = time(0);
+  time_t diff = then - now;
+
+  // convert now to string form
+  char* dt = ctime(&diff);
+  // convert now to tm struct for UTC
+  tm* gmtm = gmtime(&diff);
+  dt = asctime(gmtm);
+  G4cout << "It took :"<< dt <<"for the job to be done." << G4endl;
+
+  return 0;
 }
