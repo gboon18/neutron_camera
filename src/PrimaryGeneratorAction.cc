@@ -53,8 +53,10 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   fParticleGun->SetParticleDefinition(
                particleTable->FindParticle(particleName="neutron"));
   fParticleGun->SetParticleEnergy(10.*keV);
-  fParticleGun->SetParticlePosition(G4ThreeVector(0., -251.0028, 0.)); // Collimator face is at 0,0,0
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 1., 0.));
+  // fParticleGun->SetParticlePosition(G4ThreeVector(0., -251.0028, 0.)); // Collimator face is at 0,0,0
+  // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 1., 0.));
+  fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., 0.)); // Teempp with bbox
+  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., -1., 0.));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

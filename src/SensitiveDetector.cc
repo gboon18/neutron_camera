@@ -90,19 +90,22 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   G4double gtime   = track->GetGlobalTime();
 
 
-  // get the status of the pre step point
-  G4StepStatus PreStepStatus = aStep->GetPreStepPoint()->GetStepStatus();
-  // get the status of the post step point
-  G4StepStatus PostStepStatus = aStep->GetPostStepPoint()->GetStepStatus();
-  // get the volume of the pre step point
-  G4LogicalVolume* PreStepPoint = aStep->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
-  // get the volume of the post step point
-  G4LogicalVolume* PostStepPoint = aStep->GetPostStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+  // // moved to SteppingAction.cc
+  // // get the status of the pre step point
+  // G4StepStatus PreStepStatus = aStep->GetPreStepPoint()->GetStepStatus();
+  // // get the status of the post step point
+  // G4StepStatus PostStepStatus = aStep->GetPostStepPoint()->GetStepStatus();
+  // // get the volume of the pre step point
+  // G4LogicalVolume* PreStepPoint = aStep->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+  // // get the volume of the post step point
+  // G4LogicalVolume* PostStepPoint = aStep->GetPostStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+
   // // Check if
   // if ((PreStepStatus == fGeomBoundary) && (PostStepPoint == fScoringVolume))
   //   {
   //     G4cout<< " Position " << step->GetPostStepPoint()->GetPosition().x() << G4endl;
   //   }
+  // G4cout<<PreStepPoint->GetName()<<", "<<PostStepPoint->GetName()<<": "<<G4endl;
   
   // G4double trackid = track->GetTrackID();
   // G4double parenid = track->GetParentID();
@@ -119,12 +122,14 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   //Detectors. No neutron specific definition done
   // if(volName.compare(0,4,"LV_L") == 0)G4cout<<volName<<",  "<<volName.compare(0,4,"LV_L")<<G4endl;
   if (eventAction) {
+    // if(PreStepPoint->GetName() == "worldVOL")G4cout<<PreStepPoint->GetName()<<", "<<PostStepPoint->GetName()<<G4endl;
+
     if(
        volName.compare(0,4,"LV_L") == 0 // == "LV_L1B1"
        ) {
       if(edep!=0 || kine!=0){
-	int level = std::stoi(volName.substr(4,1));
-	int detNo = std::stoi(volName.substr(6,1));
+	// int level = std::stoi(volName.substr(4,1));
+	// int detNo = std::stoi(volName.substr(6,1));
 	// 	for(int i_l=0 ; i_l < 3 ; i_l++){
 	// 	  for(int i_d=0 ; i_d < 5 ; i_d++){
 	// 	    if(i_l+1==level && i_d+1==detNo) {
@@ -142,19 +147,20 @@ G4bool SensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory*)
 	// detEndOfLoop:
 	// 	;
 
-	int inout = -999;// -1: particle coming in. 0: inside the detector. 1: particle going out.
-	//particle coming in
-	if((PreStepStatus == fGeomBoundary) && (PostStepPoint->GetName() == volName)) {inout = -1; }
-	else if((PostStepStatus == fGeomBoundary) && (PreStepPoint->GetName() == volName)) {inout = 1;}
-	else {inout=0;}
-	// eventAction->SetPid(pid, particleName);
-	// G4cout<<PreStepPoint->GetName()<<", "<<PostStepPoint->GetName()<<": "<<inout<<G4endl;
-	eventAction->SetEdep(0, edep);
-	eventAction->FillKine(0, 0, kine);
-	eventAction->SetPidPosTime(0, 5*level+detNo, pid, particleName, pos, gtime);
-	eventAction->SetInOut(inout);
-	eventAction->FillNtuple(0);
-	// eventAction->FillNtuple(trackid, parenid);
+	// int inout = -999;// -1: particle coming in. 0: inside the detector. 1: particle going out. // moved to SteppingAction.cc
+
+	// if((PostStepStatus == fGeomBoundary) && (PostStepPoint->GetName() == volName)) {inout = -1; } // moved to SteppingAction.cc
+	// else if((PostStepStatus == fGeomBoundary) && (PostStepPoint->GetName() == "worldVOL")) {inout = 1;} // moved to SteppingAction.cc
+	// else {inout=0;} // moved to SteppingAction.cc
+	// // eventAction->SetPid(pid, particleName);
+	// G4cout<<PreStepPoint->GetName()<<", "<<PostStepPoint->GetName()<<": "<<inout<<G4endl; // 
+
+	// eventAction->SetEdep(0, edep); // 
+	// eventAction->FillKine(0, 0, kine);
+	// eventAction->SetPidPosTime(0, 5*level+detNo, pid, particleName, pos, gtime);
+	// // eventAction->SetInOut(inout); // moved to SteppingAction.cc
+	// eventAction->FillNtuple(0);
+	// // eventAction->FillNtuple(trackid, parenid);
 
       }//if(edep!=0 || kine!=0){
     }//if(volName.compare(0,4,"LV_L") == 0)
