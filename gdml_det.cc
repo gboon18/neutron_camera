@@ -89,8 +89,10 @@ int main(int argc,char **argv)
   auto* runManager = G4RunManagerFactory::CreateRunManager();
 
   runManager->SetUserInitialization(new DetectorConstruction(parser));
-  // runManager->SetUserInitialization(new QGSP_BIC_AllHP);
-  runManager->SetUserInitialization(new QGSP_BIC_HP);
+
+  runManager->SetUserInitialization(new QGSP_BIC_AllHP);//04032024 changed from QGSP_BIC_HP
+  // runManager->SetUserInitialization(new QGSP_BIC_HP);
+
   // runManager->SetUserInitialization(new QGSP_INCLXX_HP); // _HP part is for the neutron physics below 20 MeV
 
   //////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +130,13 @@ int main(int argc,char **argv)
   //////////////////////////////////////////////////////////////////////////////////////
   
   // User action initialization
-  runManager->SetUserInitialization(new ActionInitialization());
+
+  if (argc == 6){
+    runManager->SetUserInitialization(new ActionInitialization("col_det.root", atoi(argv[3]), atoi(argv[4]), atoi(argv[5])));
+  }
+  if (argc == 7){
+    runManager->SetUserInitialization(new ActionInitialization(argv[3], atoi(argv[4]), atoi(argv[5]), atoi(argv[6])));
+  }
   runManager->Initialize();
 
 

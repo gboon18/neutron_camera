@@ -1,0 +1,12 @@
+!/bin/bash
+
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_01.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_02.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_03.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_04.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_05.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_06.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_07.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_08.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_09.root
+./gdml_det NeutronCameraExport_EJ-276D_1_v11_2_meshed-worldVOLexported_all_SD.gdml run_source_iso.mac AmBe_1e7_iso_10.root

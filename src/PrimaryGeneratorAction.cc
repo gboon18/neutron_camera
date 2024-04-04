@@ -31,6 +31,9 @@
 //
 
 #include "PrimaryGeneratorAction.hh"
+
+#include "EventAction.hh"
+
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
@@ -41,22 +44,12 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-PrimaryGeneratorAction::PrimaryGeneratorAction()
+PrimaryGeneratorAction::PrimaryGeneratorAction(EventAction* eventAction)
  : G4VUserPrimaryGeneratorAction(), 
+   fEventAction(eventAction),
    fParticleGun(0)
 {
-  G4int n_particle = 1;
-  fParticleGun = new G4ParticleGun(n_particle);
-
-  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-  G4String particleName;
-  fParticleGun->SetParticleDefinition(
-               particleTable->FindParticle(particleName="neutron"));
-  fParticleGun->SetParticleEnergy(10.*keV);
-  // fParticleGun->SetParticlePosition(G4ThreeVector(0., -251.0028, 0.)); // Collimator face is at 0,0,0
-  // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 1., 0.));
-  fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., 0.)); // Teempp with bbox
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., -1., 0.));
+  fParticleGun = new G4GeneralParticleSource();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -70,34 +63,6 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  // G4int i = anEvent->GetEventID() % 3;
-  // G4ThreeVector v(1.0,0.0,0.0);
-  // switch(i)
-  // {
-  //   case 0:
-  //     break;
-  //   case 1:
-  //     v.setY(0.1);
-  //     break;
-  //   case 2:
-  //     v.setZ(0.1);
-  //     break;
-  // }
-  // fParticleGun->SetParticleMomentumDirection(v);
-
-  //Isotropic source
-  //
-  //this function is called at the begining of event
-  //
-  //distribution uniform in solid angle
-  //
-  G4double cosTheta = 2*G4UniformRand() - 1., phi = twopi*G4UniformRand();
-  G4double sinTheta = std::sqrt(1. - cosTheta*cosTheta);
-  G4double ux = sinTheta*std::cos(phi),
-           uy = sinTheta*std::sin(phi),
-           uz = cosTheta;
-
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(ux,uy,uz));
-  
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+   fParticleGun->GeneratePrimaryVertex(anEvent);
+   fEventAction->SetInitalEnergyMom(fParticleGun->GetParticleEnergy(), fParticleGun->GetParticleMomentumDirection());
 }

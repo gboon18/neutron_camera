@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='ASCII'?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+  <define>
+    <constant name="HALFPI" value="pi/2."/>
+  <constant name="PI" value="1.*pi"/>
+  <constant name="TWOPI" value="2.*pi"/>
+  <position name="P-L1B11" unit="mm" y="10.0"/>
+  <rotation name="identity" x="0" y="0" z="0"/>
+  <position name="L1B1_0" unit="mm" x="5.0" y="-15.0" z="5.0"/>
+  <position name="L1B1_1" unit="mm" x="5.0" y="-15.0" z="-5.0"/>
+  <position name="L1B1_2" unit="mm" x="5.0" y="-5.0" z="-5.0"/>
+  <position name="L1B1_3" unit="mm" x="5.0" y="-5.0" z="5.0"/>
+  <position name="L1B1_4" unit="mm" x="-5.0" y="-15.0" z="-5.0"/>
+  <position name="L1B1_5" unit="mm" x="-5.0" y="-15.0" z="5.0"/>
+  <position name="L1B1_6" unit="mm" x="-5.0" y="-5.0" z="-5.0"/>
+  <position name="L1B1_7" unit="mm" x="-5.0" y="-5.0" z="5.0"/>
+  <position name="center" x="0" y="0" z="0" unit="mm"/>
+  </define>
+  <materials>
+    <element name="Hydrogen" Z="1" formula="H">
+      <atom value="1.00784"/>
+    </element>
+    <element name="Carbon" Z="6" formula="C">
+      <atom value="12.011"/>
+    </element>
+    <element name="TS_H_of_Polyethylene" Z="1" formula="H_POLYETHYLENE">
+      <atom value="1.0079" unit="g/mole"/>
+    </element>
+    <material name="Vacuum" Z="1" >
+      <D value = "9e-17"/>
+      <atom value = "1.008"/>
+    </material>
+    <material name="Polymat"> <!-- (C2H4)n -->
+      <D value="0.953"/>
+      <!-- <T value="293.15"/> -->
+      <fraction n="0.143711" ref="TS_H_of_Polyethylene"/> <!--mass fraction-->
+      <fraction n="0.856289" ref="Carbon"/>
+    </material>
+    <material name="EJ-276D"> <!--https://eljentechnology.com/products/plastic-scintillators/ej-276 -->
+      <D value="1.099"/>
+      <fraction n="0.073103454" ref="Hydrogen"/> <!--mass fraction-->
+      <fraction n="0.926896546" ref="Carbon"/>
+    </material>
+  </materials>
+<solids>
+    <box name="WorldBox" x="100.0" y="100.0" z="100.0" lunit="mm"/>
+  <box name="Box" x="10.0" y="10.0" z="10.0" lunit="mm"/>
+  <tessellated name="L1B1">
+      <triangular vertex1="L1B1_0" vertex2="L1B1_1" vertex3="L1B1_2" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_0" vertex2="L1B1_2" vertex3="L1B1_3" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_1" vertex2="L1B1_0" vertex3="L1B1_4" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_4" vertex2="L1B1_0" vertex3="L1B1_5" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_4" vertex2="L1B1_5" vertex3="L1B1_6" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_6" vertex2="L1B1_5" vertex3="L1B1_7" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_3" vertex2="L1B1_2" vertex3="L1B1_6" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_3" vertex2="L1B1_6" vertex3="L1B1_7" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_6" vertex2="L1B1_2" vertex3="L1B1_4" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_4" vertex2="L1B1_2" vertex3="L1B1_1" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_3" vertex2="L1B1_7" vertex3="L1B1_5" type="ABSOLUTE"/>
+    <triangular vertex1="L1B1_3" vertex2="L1B1_5" vertex3="L1B1_0" type="ABSOLUTE"/>
+    </tessellated>
+  </solids>
+<structure>
+  <volume name="LV_L1B1">
+      <materialref ref="EJ-276D"/>
+    <solidref ref="L1B1"/>
+    <auxiliary auxtype="det" auxvalue="detector"/>
+    </volume>
+  <volume name="worldVOL">
+      <materialref ref="G4_AIR"/>
+    <solidref ref="WorldBox"/>
+    <physvol name="PV-LV_L1B1">
+        <volumeref ref="LV_L1B1"/>
+      <positionref ref="center"/>
+      <rotationref ref="identity"/>
+      </physvol>
+    </volume>
+  </structure>
+<setup name="Default" version="1.0">
+    <world ref="worldVOL"/>
+  </setup>
+</gdml>

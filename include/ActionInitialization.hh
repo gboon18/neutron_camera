@@ -32,16 +32,24 @@
 
 #include "G4VUserActionInitialization.hh"
 
+#include "G4String.hh"
+
 /// Action initialization class.
 
 class ActionInitialization : public G4VUserActionInitialization
 {
   public:
-    ActionInitialization();
+    ActionInitialization(G4String, G4int, long, long);
     virtual ~ActionInitialization();
 
     virtual void BuildForMaster() const;
     virtual void Build() const;
+
+  private:
+    G4String fOutputFileName;
+
+    G4int    fIndex, fIndex2;
+    long     fSeed1, fSeed2, fSeed3;    
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -36,9 +36,12 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-ActionInitialization::ActionInitialization()
- : G4VUserActionInitialization()
-{}
+ActionInitialization::ActionInitialization(G4String outputName, G4int n, long i, long j)
+ : G4VUserActionInitialization(), fIndex(n), fIndex2(n),
+    fSeed1(i), fSeed2(j), fSeed3(i)
+{
+  fOutputFileName = outputName;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -49,20 +52,20 @@ ActionInitialization::~ActionInitialization()
 
 void ActionInitialization::BuildForMaster() const
 {
-   SetUserAction(new RunAction);
+   SetUserAction(new RunAction(fOutputFileName, fIndex, fSeed1, fSeed2));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void ActionInitialization::Build() const
 {
-  SetUserAction(new PrimaryGeneratorAction);
-
-  auto runAction = new RunAction;
+  auto runAction = new RunAction(fOutputFileName, fIndex, fSeed1, fSeed2);
   SetUserAction(runAction);
 
   auto eventAction = new EventAction(runAction);
   SetUserAction(eventAction);
+
+  SetUserAction(new PrimaryGeneratorAction(eventAction));
 
   SetUserAction(new SteppingAction(eventAction));  
   

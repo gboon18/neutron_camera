@@ -42,10 +42,12 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-RunAction::RunAction()
+RunAction::RunAction(G4String outputName, G4int n, long i, long j)
+  : fIndex(n), fIndex2(n),
+    fSeed1(i), fSeed2(j), fSeed3(i)
 {
 
-
+  fOutputFileName = outputName;
   // // set printing event number per each event
   // G4RunManager::GetRunManager()->SetPrintProgress(1);
 
@@ -67,7 +69,7 @@ RunAction::RunAction()
   //
 
   // Creating histograms
-  // analysisManager->CreateH1("col" ,"Edep in collimator", 100, 0., 15*keV);
+  analysisManager->CreateH1("eh" ,"Edep in collimator", 100, 0., 15*keV);
   // analysisManager->CreateH1("det1" ,"Edep in detector 1", 100, 0., 15*keV);
   // analysisManager->CreateH1("det2" ,"Edep in detector 2", 100, 0., 15*keV);
   // analysisManager->CreateH1("det3" ,"Edep in detector 3", 100, 0., 15*keV);
@@ -78,80 +80,80 @@ RunAction::RunAction()
   // analysisManager->CreateH1("det8" ,"Edep in detector 8", 100, 0., 15*keV);
   // analysisManager->CreateH1("det9" ,"Edep in detector 9", 100, 0., 15*keV);
 
-  analysisManager->CreateH1("l1b1" ,"Detector L1B1, efficiency: 100%", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
-  analysisManager->CreateH1("l1b2" ,"Detector L1B2, efficiency: 100%", 100, 0., 15);//1
-  analysisManager->CreateH1("l1b3" ,"Detector L1B3, efficiency: 100%", 100, 0., 15);//2
-  analysisManager->CreateH1("l1b4" ,"Detector L1B4, efficiency: 100%", 100, 0., 15);//3
-  analysisManager->CreateH1("l1b5" ,"Detector L1B5, efficiency: 100%", 100, 0., 15);//4
+  // analysisManager->CreateH1("l1b1" ,"Detector L1B1, efficiency: 100%", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
+  // analysisManager->CreateH1("l1b2" ,"Detector L1B2, efficiency: 100%", 100, 0., 15);//1
+  // analysisManager->CreateH1("l1b3" ,"Detector L1B3, efficiency: 100%", 100, 0., 15);//2
+  // analysisManager->CreateH1("l1b4" ,"Detector L1B4, efficiency: 100%", 100, 0., 15);//3
+  // analysisManager->CreateH1("l1b5" ,"Detector L1B5, efficiency: 100%", 100, 0., 15);//4
 
-  analysisManager->CreateH1("l2b1" ,"Detector L2B1, efficiency: 100%", 100, 0., 15);//5
-  analysisManager->CreateH1("l2b2" ,"Detector L2B2, efficiency: 100%", 100, 0., 15);//6
-  analysisManager->CreateH1("l2b3" ,"Detector L2B3, efficiency: 100%", 100, 0., 15);//7
-  analysisManager->CreateH1("l2b4" ,"Detector L2B4, efficiency: 100%", 100, 0., 15);//8
-  analysisManager->CreateH1("l2b5" ,"Detector L2B5, efficiency: 100%", 100, 0., 15);//10
+  // analysisManager->CreateH1("l2b1" ,"Detector L2B1, efficiency: 100%", 100, 0., 15);//5
+  // analysisManager->CreateH1("l2b2" ,"Detector L2B2, efficiency: 100%", 100, 0., 15);//6
+  // analysisManager->CreateH1("l2b3" ,"Detector L2B3, efficiency: 100%", 100, 0., 15);//7
+  // analysisManager->CreateH1("l2b4" ,"Detector L2B4, efficiency: 100%", 100, 0., 15);//8
+  // analysisManager->CreateH1("l2b5" ,"Detector L2B5, efficiency: 100%", 100, 0., 15);//10
 
-  analysisManager->CreateH1("l3b1" ,"Detector L3B1, efficiency: 100%", 100, 0., 15);//11
-  analysisManager->CreateH1("l3b2" ,"Detector L3B2, efficiency: 100%", 100, 0., 15);//12
-  analysisManager->CreateH1("l3b3" ,"Detector L3B3, efficiency: 100%", 100, 0., 15);//13
-  analysisManager->CreateH1("l3b4" ,"Detector L3B4, efficiency: 100%", 100, 0., 15);//14
-  analysisManager->CreateH1("l3b5" ,"Detector L3B5, efficiency: 100%", 100, 0., 15);//15
-
-
-  analysisManager->CreateH1("l1b1_p" ,"Detector L1B1, efficiency: 100%. Proton only", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
-  analysisManager->CreateH1("l1b2_p" ,"Detector L1B2, efficiency: 100%. Proton only", 100, 0., 15);//1 + 16
-  analysisManager->CreateH1("l1b3_p" ,"Detector L1B3, efficiency: 100%. Proton only", 100, 0., 15);//2 + 16
-  analysisManager->CreateH1("l1b4_p" ,"Detector L1B4, efficiency: 100%. Proton only", 100, 0., 15);//3 + 16
-  analysisManager->CreateH1("l1b5_p" ,"Detector L1B5, efficiency: 100%. Proton only", 100, 0., 15);//4 + 16
-
-  analysisManager->CreateH1("l2b1_p" ,"Detector L2B1, efficiency: 100%. Proton only", 100, 0., 15);//5 + 16
-  analysisManager->CreateH1("l2b2_p" ,"Detector L2B2, efficiency: 100%. Proton only", 100, 0., 15);//6 + 16
-  analysisManager->CreateH1("l2b3_p" ,"Detector L2B3, efficiency: 100%. Proton only", 100, 0., 15);//7 + 16
-  analysisManager->CreateH1("l2b4_p" ,"Detector L2B4, efficiency: 100%. Proton only", 100, 0., 15);//8 + 16
-  analysisManager->CreateH1("l2b5_p" ,"Detector L2B5, efficiency: 100%. Proton only", 100, 0., 15);//10 + 16
-
-  analysisManager->CreateH1("l3b1_p" ,"Detector L3B1, efficiency: 100%. Proton only", 100, 0., 15);//11 + 16
-  analysisManager->CreateH1("l3b2_p" ,"Detector L3B2, efficiency: 100%. Proton only", 100, 0., 15);//12 + 16
-  analysisManager->CreateH1("l3b3_p" ,"Detector L3B3, efficiency: 100%. Proton only", 100, 0., 15);//13 + 16
-  analysisManager->CreateH1("l3b4_p" ,"Detector L3B4, efficiency: 100%. Proton only", 100, 0., 15);//14 + 16
-  analysisManager->CreateH1("l3b5_p" ,"Detector L3B5, efficiency: 100%. Proton only", 100, 0., 15);//15 + 16
+  // analysisManager->CreateH1("l3b1" ,"Detector L3B1, efficiency: 100%", 100, 0., 15);//11
+  // analysisManager->CreateH1("l3b2" ,"Detector L3B2, efficiency: 100%", 100, 0., 15);//12
+  // analysisManager->CreateH1("l3b3" ,"Detector L3B3, efficiency: 100%", 100, 0., 15);//13
+  // analysisManager->CreateH1("l3b4" ,"Detector L3B4, efficiency: 100%", 100, 0., 15);//14
+  // analysisManager->CreateH1("l3b5" ,"Detector L3B5, efficiency: 100%", 100, 0., 15);//15
 
 
-  analysisManager->CreateH1("l1b1_r" ,"Detector L1B1, efficiency: 100%. Gamma only", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
-  analysisManager->CreateH1("l1b2_r" ,"Detector L1B2, efficiency: 100%. Gamma only", 100, 0., 15);//1 + 32
-  analysisManager->CreateH1("l1b3_r" ,"Detector L1B3, efficiency: 100%. Gamma only", 100, 0., 15);//2 + 32
-  analysisManager->CreateH1("l1b4_r" ,"Detector L1B4, efficiency: 100%. Gamma only", 100, 0., 15);//3 + 32
-  analysisManager->CreateH1("l1b5_r" ,"Detector L1B5, efficiency: 100%. Gamma only", 100, 0., 15);//4 + 32
+  // analysisManager->CreateH1("l1b1_p" ,"Detector L1B1, efficiency: 100%. Proton only", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
+  // analysisManager->CreateH1("l1b2_p" ,"Detector L1B2, efficiency: 100%. Proton only", 100, 0., 15);//1 + 16
+  // analysisManager->CreateH1("l1b3_p" ,"Detector L1B3, efficiency: 100%. Proton only", 100, 0., 15);//2 + 16
+  // analysisManager->CreateH1("l1b4_p" ,"Detector L1B4, efficiency: 100%. Proton only", 100, 0., 15);//3 + 16
+  // analysisManager->CreateH1("l1b5_p" ,"Detector L1B5, efficiency: 100%. Proton only", 100, 0., 15);//4 + 16
 
-  analysisManager->CreateH1("l2b1_r" ,"Detector L2B1, efficiency: 100%. Gamma only", 100, 0., 15);//5 + 32
-  analysisManager->CreateH1("l2b2_r" ,"Detector L2B2, efficiency: 100%. Gamma only", 100, 0., 15);//6 + 32
-  analysisManager->CreateH1("l2b3_r" ,"Detector L2B3, efficiency: 100%. Gamma only", 100, 0., 15);//7 + 32
-  analysisManager->CreateH1("l2b4_r" ,"Detector L2B4, efficiency: 100%. Gamma only", 100, 0., 15);//8 + 32
-  analysisManager->CreateH1("l2b5_r" ,"Detector L2B5, efficiency: 100%. Gamma only", 100, 0., 15);//10 + 32
+  // analysisManager->CreateH1("l2b1_p" ,"Detector L2B1, efficiency: 100%. Proton only", 100, 0., 15);//5 + 16
+  // analysisManager->CreateH1("l2b2_p" ,"Detector L2B2, efficiency: 100%. Proton only", 100, 0., 15);//6 + 16
+  // analysisManager->CreateH1("l2b3_p" ,"Detector L2B3, efficiency: 100%. Proton only", 100, 0., 15);//7 + 16
+  // analysisManager->CreateH1("l2b4_p" ,"Detector L2B4, efficiency: 100%. Proton only", 100, 0., 15);//8 + 16
+  // analysisManager->CreateH1("l2b5_p" ,"Detector L2B5, efficiency: 100%. Proton only", 100, 0., 15);//10 + 16
 
-  analysisManager->CreateH1("l3b1_r" ,"Detector L3B1, efficiency: 100%. Gamma only", 100, 0., 15);//11 + 32
-  analysisManager->CreateH1("l3b2_r" ,"Detector L3B2, efficiency: 100%. Gamma only", 100, 0., 15);//12 + 32
-  analysisManager->CreateH1("l3b3_r" ,"Detector L3B3, efficiency: 100%. Gamma only", 100, 0., 15);//13 + 32
-  analysisManager->CreateH1("l3b4_r" ,"Detector L3B4, efficiency: 100%. Gamma only", 100, 0., 15);//14 + 32
-  analysisManager->CreateH1("l3b5_r" ,"Detector L3B5, efficiency: 100%. Gamma only", 100, 0., 15);//15 + 32
+  // analysisManager->CreateH1("l3b1_p" ,"Detector L3B1, efficiency: 100%. Proton only", 100, 0., 15);//11 + 16
+  // analysisManager->CreateH1("l3b2_p" ,"Detector L3B2, efficiencyHallC_NPS/blob/master/DVCS_evt_gen/DVCS/src/PrimaryGeneratorAction.cc 100%. Proton only", 100, 0., 15);//12 + 16
+  // analysisManager->CreateH1("l3b3_p" ,"Detector L3B3, efficiency: 100%. Proton only", 100, 0., 15);//13 + 16
+  // analysisManager->CreateH1("l3b4_p" ,"Detector L3B4, efficiency: 100%. Proton only", 100, 0., 15);//14 + 16
+  // analysisManager->CreateH1("l3b5_p" ,"Detector L3B5, efficiency: 100%. Proton only", 100, 0., 15);//15 + 16
 
 
-  analysisManager->CreateH1("l1b1_o" ,"Detector L1B1, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
-  analysisManager->CreateH1("l1b2_o" ,"Detector L1B2, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//1 + 48
-  analysisManager->CreateH1("l1b3_o" ,"Detector L1B3, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//2 + 48
-  analysisManager->CreateH1("l1b4_o" ,"Detector L1B4, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//3 + 48
-  analysisManager->CreateH1("l1b5_o" ,"Detector L1B5, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//4 + 48
+  // analysisManager->CreateH1("l1b1_r" ,"Detector L1B1, efficiency: 100%. Gamma only", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
+  // analysisManager->CreateH1("l1b2_r" ,"Detector L1B2, efficiency: 100%. Gamma only", 100, 0., 15);//1 + 32
+  // analysisManager->CreateH1("l1b3_r" ,"Detector L1B3, efficiency: 100%. Gamma only", 100, 0., 15);//2 + 32
+  // analysisManager->CreateH1("l1b4_r" ,"Detector L1B4, efficiency: 100%. Gamma only", 100, 0., 15);//3 + 32
+  // analysisManager->CreateH1("l1b5_r" ,"Detector L1B5, efficiency: 100%. Gamma only", 100, 0., 15);//4 + 32
 
-  analysisManager->CreateH1("l2b1_o" ,"Detector L2B1, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//5 + 48
-  analysisManager->CreateH1("l2b2_o" ,"Detector L2B2, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//6 + 48
-  analysisManager->CreateH1("l2b3_o" ,"Detector L2B3, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//7 + 48
-  analysisManager->CreateH1("l2b4_o" ,"Detector L2B4, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//8 + 48
-  analysisManager->CreateH1("l2b5_o" ,"Detector L2B5, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//10 + 48
+  // analysisManager->CreateH1("l2b1_r" ,"Detector L2B1, efficiency: 100%. Gamma only", 100, 0., 15);//5 + 32
+  // analysisManager->CreateH1("l2b2_r" ,"Detector L2B2, efficiency: 100%. Gamma only", 100, 0., 15);//6 + 32
+  // analysisManager->CreateH1("l2b3_r" ,"Detector L2B3, efficiency: 100%. Gamma only", 100, 0., 15);//7 + 32
+  // analysisManager->CreateH1("l2b4_r" ,"Detector L2B4, efficiency: 100%. Gamma only", 100, 0., 15);//8 + 32
+  // analysisManager->CreateH1("l2b5_r" ,"Detector L2B5, efficiency: 100%. Gamma only", 100, 0., 15);//10 + 32
 
-  analysisManager->CreateH1("l3b1_o" ,"Detector L3B1, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//11 + 48
-  analysisManager->CreateH1("l3b2_o" ,"Detector L3B2, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//12 + 48
-  analysisManager->CreateH1("l3b3_o" ,"Detector L3B3, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//13 + 48
-  analysisManager->CreateH1("l3b4_o" ,"Detector L3B4, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//14 + 48
-  analysisManager->CreateH1("l3b5_o" ,"Detector L3B5, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//15 + 48
+  // analysisManager->CreateH1("l3b1_r" ,"Detector L3B1, efficiency: 100%. Gamma only", 100, 0., 15);//11 + 32
+  // analysisManager->CreateH1("l3b2_r" ,"Detector L3B2, efficiency: 100%. Gamma only", 100, 0., 15);//12 + 32
+  // analysisManager->CreateH1("l3b3_r" ,"Detector L3B3, efficiency: 100%. Gamma only", 100, 0., 15);//13 + 32
+  // analysisManager->CreateH1("l3b4_r" ,"Detector L3B4, efficiency: 100%. Gamma only", 100, 0., 15);//14 + 32
+  // analysisManager->CreateH1("l3b5_r" ,"Detector L3B5, efficiency: 100%. Gamma only", 100, 0., 15);//15 + 32
+
+
+  // analysisManager->CreateH1("l1b1_o" ,"Detector L1B1, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//in KeV unit (see SensitiveDetector.cc /CLHEP::keV
+  // analysisManager->CreateH1("l1b2_o" ,"Detector L1B2, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//1 + 48
+  // analysisManager->CreateH1("l1b3_o" ,"Detector L1B3, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//2 + 48
+  // analysisManager->CreateH1("l1b4_o" ,"Detector L1B4, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//3 + 48
+  // analysisManager->CreateH1("l1b5_o" ,"Detector L1B5, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//4 + 48
+
+  // analysisManager->CreateH1("l2b1_o" ,"Detector L2B1, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//5 + 48
+  // analysisManager->CreateH1("l2b2_o" ,"Detector L2B2, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//6 + 48
+  // analysisManager->CreateH1("l2b3_o" ,"Detector L2B3, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//7 + 48
+  // analysisManager->CreateH1("l2b4_o" ,"Detector L2B4, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//8 + 48
+  // analysisManager->CreateH1("l2b5_o" ,"Detector L2B5, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//10 + 48
+
+  // analysisManager->CreateH1("l3b1_o" ,"Detector L3B1, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//11 + 48
+  // analysisManager->CreateH1("l3b2_o" ,"Detector L3B2, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//12 + 48
+  // analysisManager->CreateH1("l3b3_o" ,"Detector L3B3, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//13 + 48
+  // analysisManager->CreateH1("l3b4_o" ,"Detector L3B4, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//14 + 48
+  // analysisManager->CreateH1("l3b5_o" ,"Detector L3B5, efficiency: 100%. No neutron, proton, nor gamma", 100, 0., 15);//15 + 48
 
   // analysisManager->CreateH1("det1" ,"proton in collimator 1", 100, 0., 15);
   // analysisManager->CreateH1("det2" ,"gamma in collimator 2", 100, 0., 15);
@@ -175,18 +177,22 @@ RunAction::RunAction()
   analysisManager->CreateNtupleDColumn("z");//6
   analysisManager->CreateNtupleDColumn("gtime");//7
   analysisManager->CreateNtupleIColumn("block");//8
-  analysisManager->CreateNtupleIColumn("inout");//9 // recored if particle is coming, leaving or neither
+  analysisManager->CreateNtupleIColumn("inout");//9 // recored if particle is coming (-1), leaving (1) or just inside (0)
+  analysisManager->CreateNtupleDColumn("inie");//10 // primary energy
+  analysisManager->CreateNtupleDColumn("ipx");//11 // primary momentum direction x
+  analysisManager->CreateNtupleDColumn("ipy");//12 // primary momentum direction y
+  analysisManager->CreateNtupleDColumn("ipz");//13 // primary momentum direction z
 
   analysisManager->CreateNtuple("col", "Collimator particle bank");
-  analysisManager->CreateNtupleSColumn("pid_str"); //0
-  analysisManager->CreateNtupleIColumn("pid");//1
+  // analysisManager->CreateNtupleSColumn("pid_str"); //0
+  // analysisManager->CreateNtupleIColumn("pid");//1
   analysisManager->CreateNtupleDColumn("kine");//2
-  analysisManager->CreateNtupleDColumn("edep");//3
+  // analysisManager->CreateNtupleDColumn("edep");//3
   analysisManager->CreateNtupleDColumn("x");//4
   analysisManager->CreateNtupleDColumn("y");//5
   analysisManager->CreateNtupleDColumn("z");//6
   analysisManager->CreateNtupleDColumn("gtime");//7
-  analysisManager->CreateNtupleIColumn("block");//8
+  // analysisManager->CreateNtupleIColumn("block");//8
 
   // analysisManager->CreateNtupleDColumn("kine_e");//4. temporary for electron
   // analysisManager->CreateNtupleIColumn("evtid");//5. temporary
@@ -207,18 +213,27 @@ void RunAction::BeginOfRunAction(const G4Run*)
   //inform the runManager to save random number seed
   //G4RunManager::GetRunManager()->SetRandomNumberStore(true);
 
+  G4int index = fIndex2;
+  long seeds[2];
+  seeds[0] = fSeed3;
+  seeds[1] = fSeed2;
+  G4Random::setTheSeeds(seeds, index);
+  G4Random::showEngineStatus();
+
   // Get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
 
   // Open an output file
   //
-  G4String fileName = "col_det.csv";
+  // G4String fileName = "col_det.csv";
   // Other supported output types:
-  G4String fileName2 = "col_det.root";
+  // G4String fileName2 = "col_det.root";
   // G4String fileName = "col_det.hdf5";
   // G4String fileName = "col_det.xml";
   // analysisManager->OpenFile(fileName);
-  analysisManager->OpenFile(fileName2);
+  
+  analysisManager->OpenFile(fOutputFileName);
+
   G4cout << "Using " << analysisManager->GetType() << G4endl;
 
 }
@@ -230,14 +245,14 @@ void RunAction::EndOfRunAction(const G4Run* run)
   // print histogram statistics
   //
   auto analysisManager = G4AnalysisManager::Instance();
-  if ( analysisManager->GetH1(1) ) {
-    G4cout << G4endl << " ----> print histograms statistic ";
-    if(isMaster) {
-      G4cout << "for the entire run " << G4endl << G4endl;
-    }
-    else {
-      G4cout << "for the local thread " << G4endl << G4endl;
-    }
+  // if ( analysisManager->GetH1(1) ) {
+  //   G4cout << G4endl << " ----> print histograms statistic ";
+  //   if(isMaster) {
+  //     G4cout << "for the entire run " << G4endl << G4endl;
+  //   }
+  //   else {
+  //     G4cout << "for the local thread " << G4endl << G4endl;
+  //   }
 
     // G4cout << " Coll Edep : mean = "
     //    << G4BestUnit(analysisManager->GetH1(0)->mean(), "keV")
@@ -294,8 +309,10 @@ void RunAction::EndOfRunAction(const G4Run* run)
     analysisManager->Write();
     analysisManager->CloseFile();
     
-  }
+  // }
 }
+  //   analysisManager->Write();
+  //   analysisManager->CloseFile();
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

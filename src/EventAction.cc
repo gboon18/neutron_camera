@@ -73,11 +73,11 @@ void EventAction::EndOfEventAction(const G4Event*)
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
 
-  // fill histograms
+  /* // fill histograms
   for(int id = 0 ; id < ndet ; id++){
     analysisManager->FillH1(id, fEdep[id]);
   }
-    
+   */  
 
 }
 
@@ -106,8 +106,12 @@ void EventAction::FillKine(G4int id_detcol, G4int id, G4double kine){
   // if(id==0) analysisManager->FillH1(id, kine);//neutron kinetic energy
 
   // if(id==0) analysisManager->FillNtupleDColumn(2, kine);//kinetic energy
-  if(id==0) analysisManager->FillNtupleDColumn(id_detcol, 2, kine);//kinetic energy
-
+  if(id_detcol==0) {
+    if(id==0) analysisManager->FillNtupleDColumn(id_detcol, 2, kine);//kinetic energy
+  }
+  else if(id_detcol==1) {
+    if(id==0) analysisManager->FillNtupleDColumn(id_detcol, 0, kine);//kinetic energy
+  }
   // if(id==2) analysisManager->FillNtupleDColumn(8, kine);//temporary for gamma
   // if(id==3) analysisManager->FillNtupleDColumn(4, kine);//temporary for electron
 }
@@ -130,14 +134,22 @@ void EventAction::SetPidPosTime(G4int id_detcol, G4int id_block, G4int pid, G4St
   // analysisManager->FillNtupleDColumn(4, pos.getX());
   // analysisManager->FillNtupleDColumn(5, pos.getY());
   // analysisManager->FillNtupleDColumn(6, pos.getZ());
-  analysisManager->FillNtupleSColumn(id_detcol, 0, pid_str);
-  analysisManager->FillNtupleIColumn(id_detcol, 1, pid);
-  analysisManager->FillNtupleDColumn(id_detcol, 4, pos.getX());
-  analysisManager->FillNtupleDColumn(id_detcol, 5, pos.getY());
-  analysisManager->FillNtupleDColumn(id_detcol, 6, pos.getZ());
-  analysisManager->FillNtupleDColumn(id_detcol, 7, gtime);
-  analysisManager->FillNtupleIColumn(id_detcol, 8, id_block);
-  
+
+  if(id_detcol==0){
+    analysisManager->FillNtupleSColumn(id_detcol, 0, pid_str);
+    analysisManager->FillNtupleIColumn(id_detcol, 1, pid);
+    analysisManager->FillNtupleDColumn(id_detcol, 4, pos.getX());
+    analysisManager->FillNtupleDColumn(id_detcol, 5, pos.getY());
+    analysisManager->FillNtupleDColumn(id_detcol, 6, pos.getZ());
+    analysisManager->FillNtupleDColumn(id_detcol, 7, gtime);
+    analysisManager->FillNtupleIColumn(id_detcol, 8, id_block);
+  }
+  else if(id_detcol==1){
+    analysisManager->FillNtupleDColumn(id_detcol, 1, pos.getX());
+    analysisManager->FillNtupleDColumn(id_detcol, 2, pos.getY());
+    analysisManager->FillNtupleDColumn(id_detcol, 3, pos.getZ());
+    analysisManager->FillNtupleDColumn(id_detcol, 4, gtime);
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -146,6 +158,16 @@ void EventAction::SetInOut(G4int inout){
   auto analysisManager = G4AnalysisManager::Instance();
   analysisManager->FillNtupleIColumn(0, 9, inout);  
  }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void EventAction::SetInitalEnergyMom(G4double ene, G4ThreeVector mom){
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->FillNtupleDColumn(0, 10, ene);
+  analysisManager->FillNtupleDColumn(0, 11, mom.getX());
+  analysisManager->FillNtupleDColumn(0, 12, mom.getY());
+  analysisManager->FillNtupleDColumn(0, 13, mom.getZ());
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

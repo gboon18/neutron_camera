@@ -64,8 +64,8 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4String particleName = particle->GetParticleName();
   
   G4int pid = track->GetDynamicParticle()->GetParticleDefinition()->GetPDGEncoding();
-  G4double edep = step->GetTotalEnergyDeposit()/CLHEP::keV;//For _HP library
-  G4double kine = track->GetKineticEnergy()/CLHEP::keV;
+  G4double edep = step->GetTotalEnergyDeposit();///CLHEP::keV;//For _HP library
+  G4double kine = track->GetKineticEnergy();///CLHEP::keV;
   // G4double tote = track->GetTotalEnergy()/CLHEP::keV;
 
   G4ThreeVector pos = track->GetPosition();
@@ -160,12 +160,12 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     int level = -999;
     int detNo = -999;
     if(inout == -1) {
-      level = std::stoi(postName.substr(4,1));
-      detNo = std::stoi(postName.substr(6,1));
+      level = std::stoi(postName.substr(4,1))-1;
+      detNo = std::stoi(postName.substr(6,1))-1;
     }
     else if(inout == 1 || inout == 0){
-      level = std::stoi(preName.substr(4,1));
-      detNo = std::stoi(preName.substr(6,1));
+      level = std::stoi(preName.substr(4,1))-1;
+      detNo = std::stoi(preName.substr(6,1))-1;
     }
     // G4cout<<preName<<", "<<postName<<": "<<inout<<G4endl;
     fEventAction->SetEdep(0, edep); // 
@@ -173,6 +173,12 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     fEventAction->SetPidPosTime(0, 5*level+detNo, pid, particleName, pos, gtime);
     fEventAction->SetInOut(inout);
     fEventAction->FillNtuple(0);
+    // fEventAction->FillNtuple(trackid, parenid);
+  }
+  if(preName == "worldVOL" && postName.compare(0,7,"LV_Coll") == 0 && particleName == "neutron") {
+    fEventAction->FillKine(1, 0, kine);
+    fEventAction->SetPidPosTime(1, 5, pid, particleName, pos, gtime);
+    fEventAction->FillNtuple(1);
     // fEventAction->FillNtuple(trackid, parenid);
   }
 }

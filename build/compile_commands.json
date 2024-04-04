@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/gdml_det.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/gdml_det.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/gdml_det.cc"
+},
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/src/ActionInitialization.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/src/ActionInitialization.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/src/ActionInitialization.cc"
+},
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/src/DetectorConstruction.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/src/DetectorConstruction.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/src/DetectorConstruction.cc"
+},
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/src/EventAction.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/src/EventAction.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/src/EventAction.cc"
+},
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/src/PrimaryGeneratorAction.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/src/PrimaryGeneratorAction.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/src/PrimaryGeneratorAction.cc"
+},
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/src/RunAction.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/src/RunAction.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/src/RunAction.cc"
+},
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/src/SensitiveDetector.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/src/SensitiveDetector.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/src/SensitiveDetector.cc"
+},
+{
+  "directory": "/home/vboxuser/playground/geant4/neutron_cam/nc/build",
+  "command": "/usr/bin/c++ -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_OPENGLX -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DG4VIS_USE_TOOLSSG_X11_GLES -DG4VIS_USE_TOOLSSG_X11_ZB -DG4VIS_USE_VTK -DG4VIS_USE_VTK_QT -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -I/home/vboxuser/playground/geant4/neutron_cam/nc/include -isystem /usr/local/include/Geant4 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -g -fPIC -o CMakeFiles/gdml_det.dir/src/SteppingAction.cc.o -c /home/vboxuser/playground/geant4/neutron_cam/nc/src/SteppingAction.cc",
+  "file": "/home/vboxuser/playground/geant4/neutron_cam/nc/src/SteppingAction.cc"
+}
+]
