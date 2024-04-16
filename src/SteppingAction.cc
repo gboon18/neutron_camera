@@ -101,9 +101,13 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   if(postvol) PostStepPoint = postvol->GetLogicalVolume();
   G4String preName = "";
   G4String postName = "";
-  if(PreStepPoint) preName = PreStepPoint->GetName();
-  if(PostStepPoint) postName = PostStepPoint->GetName();
-    
+  G4String prepvname = ""; // physical volume name
+  G4String postpvname = "";
+  if(PreStepPoint) {preName = PreStepPoint->GetName(); prepvname = prevol->GetName();}
+  if(PostStepPoint) {postName = PostStepPoint->GetName(); postpvname = postvol->GetName();}
+
+  // G4cout<<"prepvname: "<<prepvname<<", postpvname: "<<postpvname<<G4endl;
+  
   // G4cout<<PostStepPoint->GetName()<<G4endl;
 
   // G4cout<<PreStepPoint->GetName()<<G4endl;

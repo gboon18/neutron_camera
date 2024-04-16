@@ -45,7 +45,7 @@ class G4Run;
 class RunAction : public G4UserRunAction
 {
   public:
-    RunAction(G4String, G4int, long, long);
+    RunAction(G4String);//, G4int, long, long);
     ~RunAction() override = default;
 
     void BeginOfRunAction(const G4Run*) override;
@@ -58,8 +58,8 @@ class RunAction : public G4UserRunAction
     // G4Accumulable<G4double> fEdep2 = 0.;
     G4String fOutputFileName;
 
-    G4int    fIndex, fIndex2;
-    long     fSeed1, fSeed2, fSeed3;
+    // G4int    fIndex, fIndex2;
+    // long     fSeed1, fSeed2, fSeed3;
 };
 
 #endif

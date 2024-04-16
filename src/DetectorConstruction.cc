@@ -141,4 +141,3 @@ void DetectorConstruction::ConstructSDandField()
     }
   }
 }
-

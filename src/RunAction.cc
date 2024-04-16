@@ -42,9 +42,9 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-RunAction::RunAction(G4String outputName, G4int n, long i, long j)
-  : fIndex(n), fIndex2(n),
-    fSeed1(i), fSeed2(j), fSeed3(i)
+RunAction::RunAction(G4String outputName)//, G4int n, long i, long j)
+  // : fIndex(n), fIndex2(n),
+    // fSeed1(i), fSeed2(j), fSeed3(i)
 {
 
   fOutputFileName = outputName;
@@ -182,17 +182,30 @@ RunAction::RunAction(G4String outputName, G4int n, long i, long j)
   analysisManager->CreateNtupleDColumn("ipx");//11 // primary momentum direction x
   analysisManager->CreateNtupleDColumn("ipy");//12 // primary momentum direction y
   analysisManager->CreateNtupleDColumn("ipz");//13 // primary momentum direction z
+  analysisManager->CreateNtupleDColumn("ix");//14 // primary momentum direction x
+  analysisManager->CreateNtupleDColumn("iy");//15 // primary momentum direction y
+  analysisManager->CreateNtupleDColumn("iz");//16 // primary momentum direction z
 
-  analysisManager->CreateNtuple("col", "Collimator particle bank");
-  // analysisManager->CreateNtupleSColumn("pid_str"); //0
-  // analysisManager->CreateNtupleIColumn("pid");//1
-  analysisManager->CreateNtupleDColumn("kine");//2
-  // analysisManager->CreateNtupleDColumn("edep");//3
-  analysisManager->CreateNtupleDColumn("x");//4
-  analysisManager->CreateNtupleDColumn("y");//5
-  analysisManager->CreateNtupleDColumn("z");//6
-  analysisManager->CreateNtupleDColumn("gtime");//7
-  // analysisManager->CreateNtupleIColumn("block");//8
+  // analysisManager->CreateNtuple("col", "Collimator particle bank");
+  // // analysisManager->CreateNtupleSColumn("pid_str"); //0
+  // // analysisManager->CreateNtupleIColumn("pid");//1
+  // analysisManager->CreateNtupleDColumn("kine");//2
+  // // analysisManager->CreateNtupleDColumn("edep");//3
+  // analysisManager->CreateNtupleDColumn("x");//4
+  // analysisManager->CreateNtupleDColumn("y");//5
+  // analysisManager->CreateNtupleDColumn("z");//6
+  // analysisManager->CreateNtupleDColumn("gtime");//7
+  // // analysisManager->CreateNtupleIColumn("block");//8
+
+  
+  analysisManager->CreateNtupleDColumn("c_kine");//17
+  analysisManager->CreateNtupleDColumn("c_x");//18
+  analysisManager->CreateNtupleDColumn("c_y");//19
+  analysisManager->CreateNtupleDColumn("c_z");//20
+  analysisManager->CreateNtupleDColumn("c_gtime");//21
+  
+
+  
 
   // analysisManager->CreateNtupleDColumn("kine_e");//4. temporary for electron
   // analysisManager->CreateNtupleIColumn("evtid");//5. temporary
@@ -213,11 +226,11 @@ void RunAction::BeginOfRunAction(const G4Run*)
   //inform the runManager to save random number seed
   //G4RunManager::GetRunManager()->SetRandomNumberStore(true);
 
-  G4int index = fIndex2;
-  long seeds[2];
-  seeds[0] = fSeed3;
-  seeds[1] = fSeed2;
-  G4Random::setTheSeeds(seeds, index);
+  // G4int index = fIndex2;
+  // long seeds[2];
+  // seeds[0] = fSeed3;
+  // seeds[1] = fSeed2;
+  // G4Random::setTheSeeds(seeds, index);//04082024: MixMax random engine is uesed and use its seeds.
   G4Random::showEngineStatus();
 
   // Get analysis manager

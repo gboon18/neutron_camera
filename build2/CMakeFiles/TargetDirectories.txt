@@ -1,8 +1,0 @@
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/gdml_det.dir
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/col_det.dir
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/edit_cache.dir
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/rebuild_cache.dir
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/list_install_components.dir
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/install.dir
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/install/local.dir
-/home/vboxuser/playground/geant4/neutron_cam/nc/build2/CMakeFiles/install/strip.dir

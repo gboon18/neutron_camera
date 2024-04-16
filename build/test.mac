@@ -1,0 +1,28 @@
+###################################################
+# Batch running of events  
+###################################################
+
+# verbosity
+# /tracking/verbose 1
+# /control/verbose 1
+# /run/verbose 2
+
+/tracking/verbose 0
+/control/verbose 0
+/run/verbose 0
+/run/printProgress 10000 # Don't print out Event 9997 starts with initial seeds (51148325,13221595). this type.
+
+# /gps/verbose 0
+# /gps/particle neutron
+
+/gps/pos/centre 9.9822 -350 20.1168 mm
+/gps/ang/type iso
+# /gps/direction 0 1 0
+/gps/pos/type Point
+
+/gps/ene/mono 2.45 MeV
+
+
+/run/beamOn 1
+
+exit

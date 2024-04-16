@@ -39,7 +39,7 @@
 class ActionInitialization : public G4VUserActionInitialization
 {
   public:
-    ActionInitialization(G4String, G4int, long, long);
+    ActionInitialization(G4String);//, G4int, long, long);
     virtual ~ActionInitialization();
 
     virtual void BuildForMaster() const;
@@ -48,8 +48,8 @@ class ActionInitialization : public G4VUserActionInitialization
   private:
     G4String fOutputFileName;
 
-    G4int    fIndex, fIndex2;
-    long     fSeed1, fSeed2, fSeed3;    
+    // G4int    fIndex, fIndex2;
+    // long     fSeed1, fSeed2, fSeed3;    
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

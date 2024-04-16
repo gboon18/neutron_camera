@@ -79,8 +79,8 @@ int main(int argc,char **argv)
     ui = new G4UIExecutive(argc, argv);
   }
 
-  //choose the Random engine
-  G4Random::setTheEngine(new CLHEP::RanecuEngine);
+  // //choose the Random engine
+  // G4Random::setTheEngine(new CLHEP::RanecuEngine);// 04082024: default engine is MixMax known to provide a much more robust internal seeding in 64 bits.
 
   
   G4GDMLParser parser;
@@ -131,11 +131,17 @@ int main(int argc,char **argv)
   
   // User action initialization
 
-  if (argc == 6){
-    runManager->SetUserInitialization(new ActionInitialization("col_det.root", atoi(argv[3]), atoi(argv[4]), atoi(argv[5])));
+  // if (argc == 6){
+  //   runManager->SetUserInitialization(new ActionInitialization("col_det.root", atoi(argv[3]), atoi(argv[4]), atoi(argv[5])));
+  // }
+  // if (argc == 7){
+  //   runManager->SetUserInitialization(new ActionInitialization(argv[3], atoi(argv[4]), atoi(argv[5]), atoi(argv[6])));
+  // }
+  if (argc == 3 || argc == 2){
+    runManager->SetUserInitialization(new ActionInitialization("col_det.root"));
   }
-  if (argc == 7){
-    runManager->SetUserInitialization(new ActionInitialization(argv[3], atoi(argv[4]), atoi(argv[5]), atoi(argv[6])));
+  if (argc == 4){
+    runManager->SetUserInitialization(new ActionInitialization(argv[3]));
   }
   runManager->Initialize();
 

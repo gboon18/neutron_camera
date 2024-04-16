@@ -78,7 +78,7 @@ public:
 
   void SetInOut(G4int);
 
-  void SetInitalEnergyMom(G4double, G4ThreeVector);
+  void SetInitialEnergyMom(G4double, G4ThreeVector, G4ThreeVector);
 
   // void FillNtuple();
   void FillNtuple(G4int);

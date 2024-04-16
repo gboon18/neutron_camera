@@ -87,6 +87,6 @@
 /gps/hist/point    10.8 0.009837
 /gps/hist/inter Spline
 
-/run/beamOn 1
+/run/beamOn 1000000
 
 exit

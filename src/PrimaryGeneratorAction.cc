@@ -64,5 +64,5 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
    fParticleGun->GeneratePrimaryVertex(anEvent);
-   fEventAction->SetInitalEnergyMom(fParticleGun->GetParticleEnergy(), fParticleGun->GetParticleMomentumDirection());
+   fEventAction->SetInitialEnergyMom(fParticleGun->GetParticleEnergy(), fParticleGun->GetParticleMomentumDirection(), fParticleGun->GetParticlePosition());
 }

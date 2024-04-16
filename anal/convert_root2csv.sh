@@ -1,34 +1,10 @@
 !/bin/bash
 
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_01.root\",\"det\",\"output/AmBe_1e7_iso_01.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_02.root\",\"det\",\"output/AmBe_1e7_iso_02.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_03.root\",\"det\",\"output/AmBe_1e7_iso_03.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_04.root\",\"det\",\"output/AmBe_1e7_iso_04.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_05.root\",\"det\",\"output/AmBe_1e7_iso_05.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_06.root\",\"det\",\"output/AmBe_1e7_iso_06.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_07.root\",\"det\",\"output/AmBe_1e7_iso_07.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_08.root\",\"det\",\"output/AmBe_1e7_iso_08.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_09.root\",\"det\",\"output/AmBe_1e7_iso_09.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_10.root\",\"det\",\"output/AmBe_1e7_iso_10.csv\"\)
+# root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_iso_01.root\",\"det\",\"output/AmBe_1e7_iso_01.csv\"\)
 
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_01.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_01.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_02.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_02.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_03.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_03.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_04.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_04.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_05.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_05.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_06.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_06.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_07.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_07.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_08.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_08.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_09.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_09.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_posxShift_iso_10.root\",\"det\",\"output/AmBe_1e7_posxShift_iso_10.csv\"\)
+for i in {1..26}
+do
+    # echo $(printf "%02d" $i)
+    root -b -q convert_root2csv.C\(\"../build/output/cathodeclub_$(printf "%02d" $i).root\",\"det\",\"cathodeclub/cathodeclub_$(printf "%02d" $i).csv\"\)
+done
 
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_01.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_01.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_02.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_02.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_03.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_03.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_04.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_04.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_05.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_05.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_06.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_06.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_07.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_07.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_08.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_08.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_09.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_09.csv\"\)
-root -b -q convert_root2csv.C\(\"../build2/AmBe_1e7_negxShift_iso_10.root\",\"det\",\"output/AmBe_1e7_negxShift_iso_10.csv\"\)
